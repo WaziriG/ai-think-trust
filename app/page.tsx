@@ -274,7 +274,10 @@ export default function Home() {
                 Meet the full Trust, watch AI tools work live, and bring your real business problems.
                 Attendees leave with a free AI tool and a direct path to the right expert for their situation.
               </p>
-              <span
+              <a
+                href="https://us06web.zoom.us/meeting/register/W706Mw6WS4emTH3gtBufOg#/registration"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   background: "var(--accent)",
                   color: "#ffffff",
@@ -283,11 +286,11 @@ export default function Home() {
                   fontWeight: 700,
                   fontSize: 14,
                   display: "inline-block",
-                  opacity: 0.5,
+                  textDecoration: "none",
                 }}
               >
-                Registration Opening Soon
-              </span>
+                Register for the Webinar
+              </a>
             </div>
 
             <div style={{
