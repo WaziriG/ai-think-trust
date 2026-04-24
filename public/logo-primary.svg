@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" width="680" height="280">
+  <title>AI Think Trust - Primary Logo</title>
+  <desc>Primary horizontal logo for AI Think Trust. ATT monogram in black block with coral accent, paired with wordmark and tagline.</desc>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="680" height="280" fill="#FAFAF8"/>
+
+  <!-- Monogram block -->
+  <g transform="translate(60, 90)">
+    <rect x="0" y="0" width="180" height="140" fill="#0A0A0A"/>
+    <text x="90" y="100" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-size="60" font-weight="900" fill="#FAFAF8" letter-spacing="-2">ATT</text>
+    <circle cx="158" cy="30" r="8" fill="#D84A3D"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="270" y="135" font-family="Helvetica Neue, Arial, sans-serif" font-size="36" font-weight="800" fill="#0A0A0A" letter-spacing="1">AI THINK</text>
+  <text x="270" y="175" font-family="Helvetica Neue, Arial, sans-serif" font-size="36" font-weight="800" fill="#0A0A0A" letter-spacing="1">TRUST<tspan fill="#D84A3D">.</tspan></text>
+
+  <!-- Tagline -->
+  <text x="270" y="210" font-family="Helvetica Neue, Arial, sans-serif" font-size="12" font-weight="500" fill="#0A0A0A" letter-spacing="5">THE TRUSTED VOICES IN AI</text>
+</svg>
