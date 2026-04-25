@@ -1,10 +1,10 @@
 const members = [
-  { initials: "PD", name: "Patty Dominguez", role: "Host & Lead Strategist" },
-  { initials: "JA", name: "Jackson", role: "Digital Infrastructure" },
-  { initials: "SA", name: "Sage", role: "Content & Community" },
-  { initials: "DA", name: "Daniel", role: "Analytics & Metrics" },
-  { initials: "JB", name: "Jasmine Brown", role: "Operations & Automation" },
-  { initials: "WG", name: "Waziri Garuba", role: "AI Systems & Strategy" },
+  { initials: "PD", name: "Patty Dominguez", role: "Host & Lead Strategist", photo: null },
+  { initials: "JA", name: "Jackson", role: "Digital Infrastructure", photo: "/members/jackson.jpg" },
+  { initials: "SA", name: "Sage", role: "Content & Community", photo: null },
+  { initials: "DA", name: "Daniel", role: "Analytics & Metrics", photo: "/members/daniel.jpg" },
+  { initials: "JB", name: "Jasmine Brown", role: "Operations & Automation", photo: "/members/jasmine.jpg" },
+  { initials: "WG", name: "Waziri Garuba", role: "AI Systems & Strategy", photo: "/members/waziri.jpg" },
 ];
 
 const agendaItems = [
@@ -135,7 +135,7 @@ export default function Home() {
             Register for May 8th Webinar
           </a>
           <a
-            href="#quiz"
+            href="/quiz"
             style={{
               background: "transparent",
               color: "var(--text)",
@@ -390,23 +390,39 @@ export default function Home() {
                   textAlign: "center",
                 }}
               >
-                <div style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: "50%",
-                  background: "var(--accent-dim)",
-                  border: "1px solid var(--accent)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0 auto 16px",
-                  fontSize: 16,
-                  fontWeight: 700,
-                  color: "var(--accent)",
-                  letterSpacing: "0.04em",
-                }}>
-                  {m.initials}
-                </div>
+                {m.photo ? (
+                  <img
+                    src={m.photo}
+                    alt={m.name}
+                    style={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      margin: "0 auto 16px",
+                      display: "block",
+                      border: "2px solid var(--border)",
+                    }}
+                  />
+                ) : (
+                  <div style={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: "50%",
+                    background: "var(--accent-dim)",
+                    border: "1px solid var(--accent)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "0 auto 16px",
+                    fontSize: 17,
+                    fontWeight: 700,
+                    color: "var(--accent)",
+                    letterSpacing: "0.04em",
+                  }}>
+                    {m.initials}
+                  </div>
+                )}
                 <p style={{ fontWeight: 700, fontSize: 15, color: "var(--text)", marginBottom: 4 }}>
                   {m.name}
                 </p>
@@ -457,7 +473,8 @@ export default function Home() {
             Answer a few questions about your business and we will match you directly with
             the Trust member best positioned to solve your specific AI challenge.
           </p>
-          <span
+          <a
+            href="/quiz"
             style={{
               background: "var(--accent)",
               color: "#ffffff",
@@ -466,11 +483,11 @@ export default function Home() {
               fontWeight: 700,
               fontSize: 15,
               display: "inline-block",
-              opacity: 0.5,
+              textDecoration: "none",
             }}
           >
-            Quiz Coming Soon
-          </span>
+            Take the AI Fit Quiz →
+          </a>
         </div>
       </section>
 
