@@ -1,10 +1,10 @@
 const members = [
   { initials: "PD", name: "Patty Dominguez", role: "Host & Lead Strategist", photo: null },
-  { initials: "JA", name: "Jackson", role: "Digital Infrastructure", photo: "/members/jackson.png" },
+  { initials: "JA", name: "Jackson", role: "Digital Infrastructure", photo: "/members/jackson.jpg" },
   { initials: "SA", name: "Sage", role: "Content & Community", photo: null },
-  { initials: "DA", name: "Daniel", role: "Analytics & Metrics", photo: "/members/daniel.png" },
-  { initials: "JB", name: "Jasmine Brown", role: "Operations & Automation", photo: "/members/jasmine.png" },
-  { initials: "WG", name: "Waziri Garuba", role: "AI Systems & Strategy", photo: "/members/waziri.png" },
+  { initials: "DA", name: "Daniel", role: "Analytics & Metrics", photo: "/members/daniel.jpg" },
+  { initials: "JB", name: "Jasmine Brown", role: "Operations & Automation", photo: "/members/jasmine.jpg" },
+  { initials: "WG", name: "Waziri Garuba", role: "AI Systems & Strategy", photo: "/members/waziri.jpg" },
 ];
 
 const agendaItems = [

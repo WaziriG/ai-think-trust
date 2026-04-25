@@ -118,7 +118,7 @@ const MEMBERS: Record<
     initials: "JA",
     description:
       "Jackson builds the technical foundation — websites, automations, and integrated systems that scale without adding headcount. Your go-to when the team needs the right infrastructure underneath them.",
-    photo: "/members/jackson.png",
+    photo: "/members/jackson.jpg",
   },
   Sage: {
     role: "Content & Community",
@@ -132,21 +132,21 @@ const MEMBERS: Record<
     initials: "DA",
     description:
       "Daniel helps growing teams build the measurement infrastructure to prove — and improve — the ROI of every AI investment. If your business runs on data, this is where to start.",
-    photo: "/members/daniel.png",
+    photo: "/members/daniel.jpg",
   },
   "Jasmine Brown": {
     role: "Operations & Automation",
     initials: "JB",
     description:
       "Jasmine designs the workflows and automations that take repetitive work off your plate for good — giving you back hours every week.",
-    photo: "/members/jasmine.png",
+    photo: "/members/jasmine.jpg",
   },
   "Waziri Garuba": {
     role: "AI Systems & Strategy",
     initials: "WG",
     description:
       "Waziri builds custom AI systems — agents, GPTs, and multi-tool workflows — for operators ready to move beyond off-the-shelf tools.",
-    photo: "/members/waziri.png",
+    photo: "/members/waziri.jpg",
   },
 };
 
