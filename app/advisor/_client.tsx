@@ -9,6 +9,7 @@ const AGENT_ID = "agent_1901k1trym39fhhvkr3ecs47nyj4";
 const MEMBER_PHOTOS = [
   "/members/patty.jpg",
   "/members/jackson.jpg",
+  "/members/sage.jpg",
   "/members/daniel.jpg",
   "/members/jasmine.jpg",
   "/members/waziri.jpg",
