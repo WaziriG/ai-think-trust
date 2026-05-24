@@ -6,13 +6,13 @@ import { ConversationProvider, useConversation } from "@elevenlabs/react";
 
 const AGENT_ID = "agent_1901k1trym39fhhvkr3ecs47nyj4";
 
-const MEMBER_PHOTOS = [
-  "/members/patty.jpg",
-  "/members/jackson.jpg",
-  "/members/sage.jpg",
-  "/members/daniel.jpg",
-  "/members/jasmine.jpg",
-  "/members/waziri.jpg",
+const MEMBER_ORBS = [
+  { photo: "/members/patty.jpg",   name: "Patty",   pos: { top: -58,  left: -58  }, delay: 0.0 },
+  { photo: "/members/jackson.jpg", name: "Jackson", pos: { top: -68,  left: "27%"}, delay: 0.4 },
+  { photo: "/members/sage.jpg",    name: "Sage",    pos: { top: -58,  right: -58 }, delay: 0.8 },
+  { photo: "/members/daniel.jpg",  name: "Daniel",  pos: { top: "42%",right: -70 }, delay: 1.2 },
+  { photo: "/members/jasmine.jpg", name: "Jasmine", pos: { bottom: 148,right: -60 }, delay: 1.6 },
+  { photo: "/members/waziri.jpg",  name: "Waz",     pos: { top: "58%",left: -70  }, delay: 2.0 },
 ];
 
 const C = {
@@ -32,38 +32,42 @@ interface Message {
   timestamp: Date;
 }
 
-// ─── BACKGROUND MONTAGE ──────────────────────────────────────────────────────
+// ─── MEMBER ORBS ─────────────────────────────────────────────────────────────
 
-function BackgroundMontage() {
+function MemberOrbs() {
   return (
     <>
-      <div style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 0,
-        display: "flex",
-        overflow: "hidden",
-      }}>
-        {MEMBER_PHOTOS.map((src, i) => (
-          <div
-            key={i}
-            style={{
-              flex: 1,
-              backgroundImage: `url(${src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center top",
-              filter: "grayscale(100%) blur(3px)",
-              transform: "scale(1.06)",
-            }}
+      {MEMBER_ORBS.map((orb) => (
+        <div
+          key={orb.name}
+          style={{
+            position: "fixed",
+            width: 144,
+            height: 144,
+            borderRadius: "50%",
+            overflow: "hidden",
+            border: "2px solid rgba(229,57,53,0.28)",
+            boxShadow: "0 0 28px rgba(229,57,53,0.1), inset 0 0 0 1px rgba(255,255,255,0.04)",
+            pointerEvents: "none",
+            zIndex: 3,
+            opacity: 0,
+            animationName: "orbfadein, orbfloat",
+            animationDuration: "1.2s, 9s",
+            animationDelay: `${orb.delay}s, ${orb.delay + 1.2}s`,
+            animationTimingFunction: "ease, ease-in-out",
+            animationFillMode: "forwards, none",
+            animationIterationCount: "1, infinite",
+            ...orb.pos,
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={orb.photo}
+            alt=""
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
           />
-        ))}
-      </div>
-      <div style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 1,
-        background: "linear-gradient(to bottom, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.88) 55%, rgba(10,10,10,0.97) 100%)",
-      }} />
+        </div>
+      ))}
     </>
   );
 }
@@ -281,13 +285,11 @@ function AdvisorInner() {
 
   return (
     <div style={{
-      background: "transparent",
+      background: C.bg,
       minHeight: "100vh",
       display: "flex",
       flexDirection: "column",
       fontFamily: "var(--font-geist), system-ui, sans-serif",
-      position: "relative",
-      zIndex: 2,
     }}>
 
       {/* NAV */}
@@ -507,9 +509,17 @@ export default function AdvisorClient() {
           0%, 100% { box-shadow: 0 0 0 5px rgba(229,57,53,0.12); }
           50% { box-shadow: 0 0 0 14px rgba(229,57,53,0.04); }
         }
+        @keyframes orbfadein {
+          from { opacity: 0; transform: scale(0.82); }
+          to   { opacity: 0.72; transform: scale(1); }
+        }
+        @keyframes orbfloat {
+          0%, 100% { opacity: 0.72; }
+          50%      { opacity: 0.88; }
+        }
         * { box-sizing: border-box; }
       `}</style>
-      <BackgroundMontage />
+      <MemberOrbs />
       <ConversationProvider>
         <AdvisorInner />
       </ConversationProvider>
