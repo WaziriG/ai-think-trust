@@ -1,7 +1,7 @@
 const members = [
-  { initials: "PD", name: "Patty Dominguez", role: "Host & Lead Strategist", photo: null },
+  { initials: "PD", name: "Patty Dominguez", role: "Brand Authority & AI Visibility", photo: "/members/patty.jpg" },
   { initials: "JA", name: "Jackson", role: "Digital Infrastructure", photo: "/members/jackson.jpg" },
-  { initials: "SA", name: "Sage", role: "Content & Community", photo: null },
+  { initials: "SF", name: "Sage", role: "Embedded AI Engineering", photo: null },
   { initials: "DA", name: "Daniel", role: "Analytics & Metrics", photo: "/members/daniel.jpg" },
   { initials: "JB", name: "Jasmine Brown", role: "Operations & Automation", photo: "/members/jasmine.jpg" },
   { initials: "WG", name: "Waziri Garuba", role: "AI Systems & Strategy", photo: "/members/waziri.jpg" },
@@ -42,6 +42,15 @@ export default function Home() {
           <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
             <a href="#webinar" style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}>Webinar</a>
             <a href="#members" style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}>Members</a>
+            <a href="/advisor" style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}>AI Advisor</a>
+            <a
+              href="https://www.youtube.com/@aithinktrust"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}
+            >
+              YouTube
+            </a>
             <a
               href="https://www.linkedin.com/company/ai-think-trust/"
               target="_blank"
@@ -503,14 +512,24 @@ export default function Home() {
           gap: 16,
         }}>
           <img src="/logo-reverse.svg" alt="AI Think Trust" style={{ height: 28 }} />
-          <a
-            href="https://www.linkedin.com/company/ai-think-trust/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}
-          >
-            LinkedIn
-          </a>
+          <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
+            <a
+              href="https://www.youtube.com/@aithinktrust"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}
+            >
+              YouTube
+            </a>
+            <a
+              href="https://www.linkedin.com/company/ai-think-trust/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}
+            >
+              LinkedIn
+            </a>
+          </div>
           <span style={{ color: "var(--muted)", fontSize: 13 }}>
             &copy; {new Date().getFullYear()} AI Think Trust. All rights reserved.
           </span>

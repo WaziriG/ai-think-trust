@@ -71,28 +71,139 @@ const QUESTIONS = [
   },
 ];
 
-// ─── SCORING TABLE ────────────────────────────────────────────────────────────
-// Primary key: Q4 (what would change your business most)
-// Override 1: Q2 = "Building custom workflows / GPTs" → always Waziri
-// Override 2: Q1 = "Growing company (10+)" + Q4 = "understand AI" → Daniel
-//             (larger orgs need a metrics/ROI lens on AI adoption)
-// Hot lead: Q5 = "30 days" OR Q3 answer > 80 chars (detailed = engaged)
-const Q4_ROUTING: Record<string, string> = {
-  "Save hours on repetitive work (automation)": "Jasmine Brown",
-  "Get better at content / marketing with AI": "Sage",
-  "Actually understand what AI can do for my business": "Patty Dominguez",
-  "Build something custom (GPT, agent, workflow)": "Waziri Garuba",
-  "Train my team so I'm not the bottleneck": "Jackson",
+// ─── SCORING ENGINE ───────────────────────────────────────────────────────────
+// Weighted multi-signal scoring system. Every answer contributes points.
+// Hard excludes (XL = -9999) override all other scores.
+//
+// Weights by question:
+//   Q4 primary driver — rank (1–6) × 10 pts  → max 60 pts
+//   Q1 eligibility    — hard excludes + boosts → ±8–20 pts
+//   Q2 AI maturity    — hard excludes + boosts → ±8–20 pts
+//   Q3 open text      — keyword clusters       → +10 pts per match
+//   Q5 urgency        — delivery speed signal  → ±5–10 pts
+//
+// Hot lead flag (separate from routing): Q5 = "30 days" OR Q3 > 80 chars.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const XL = -9999;
+
+// Q4: Priority rankings per answer (1 = best fit, 6 = weakest)
+const Q4_RANKS: Record<string, Record<string, number>> = {
+  "Save hours on repetitive work (automation)": {
+    "Daniel Marama": 6, "Waziri Garuba": 5, "Jasmine Brown": 4,
+    "Patty Dominguez": 3, "Jackson Edens": 2, "Sage": 1,
+  },
+  "Get better at content / marketing with AI": {
+    "Patty Dominguez": 6, "Daniel Marama": 5, "Jackson Edens": 4,
+    "Jasmine Brown": 3, "Waziri Garuba": 2, "Sage": 1,
+  },
+  "Actually understand what AI can do for my business": {
+    "Jackson Edens": 6, "Jasmine Brown": 5, "Patty Dominguez": 4,
+    "Waziri Garuba": 3, "Daniel Marama": 2, "Sage": 1,
+  },
+  "Build something custom (GPT, agent, workflow)": {
+    "Sage": 6, "Daniel Marama": 5, "Waziri Garuba": 4,
+    "Patty Dominguez": 3, "Jasmine Brown": 2, "Jackson Edens": 1,
+  },
+  "Train my team so I'm not the bottleneck": {
+    "Waziri Garuba": 6, "Patty Dominguez": 5, "Jasmine Brown": 4,
+    "Jackson Edens": 3, "Daniel Marama": 2, "Sage": 1,
+  },
 };
 
-function routeToMember(a: Answers): string {
-  if (a.q2 === "Building custom workflows / GPTs") return "Waziri Garuba";
-  if (
-    a.q1 === "Growing company (10+)" &&
-    a.q4 === "Actually understand what AI can do for my business"
-  )
-    return "Daniel";
-  return Q4_ROUTING[a.q4] ?? "Patty Dominguez";
+function scoreMembers(a: Answers): string {
+  const s: Record<string, number> = {
+    "Patty Dominguez": 0, "Jackson Edens": 0, "Sage": 0,
+    "Daniel Marama": 0, "Jasmine Brown": 0, "Waziri Garuba": 0,
+  };
+
+  // ── Q1: Business size / stage ──────────────────────────────────────────────
+  if (a.q1 === "Solopreneur / freelancer" || a.q1 === "Still figuring it out") {
+    s["Sage"] += XL;           // Sage (Rosenblatt) doesn't serve solos/pre-revenue
+    s["Daniel Marama"] -= 15;  // Daniel's ICP is $5M–$50M companies
+  }
+  if (a.q1 === "Still figuring it out") s["Jackson Edens"] += 20;
+  if (a.q1 === "Solopreneur / freelancer") s["Jackson Edens"] += 8;
+  if (a.q1 === "Growing company (10+)") {
+    s["Jackson Edens"] += XL;   // Jackson doesn't serve growing companies
+    s["Jasmine Brown"] += XL;   // Jasmine doesn't serve growing companies
+    s["Patty Dominguez"] += XL; // Patty doesn't serve growing companies
+    s["Daniel Marama"] += 20;
+    s["Sage"] += 20;
+    s["Waziri Garuba"] += 15;
+  }
+
+  // ── Q2: AI experience / maturity ──────────────────────────────────────────
+  if (a.q2 === "Haven't touched it") {
+    if (a.q1 === "Solopreneur / freelancer" || a.q1 === "Still figuring it out") {
+      s["Jasmine Brown"] += 15;
+      s["Jackson Edens"] += 15;
+    } else {
+      // 2+ people, zero AI experience → Sage/Waziri/Daniel are wrong fits; Patty/Jasmine handle novices
+      s["Sage"] += XL;
+      s["Waziri Garuba"] -= 15;
+      s["Daniel Marama"] -= 15;
+      s["Patty Dominguez"] += 15;
+      s["Jasmine Brown"] += 15;
+    }
+  }
+  if (a.q2 === "Dabbling (ChatGPT here and there)") {
+    s["Sage"] += 8; s["Waziri Garuba"] += 8; s["Daniel Marama"] += 8;
+  }
+  if (a.q2 === "Using it weekly for real work") {
+    s["Waziri Garuba"] += 15; s["Daniel Marama"] += 15;
+    s["Sage"] += 10; s["Jasmine Brown"] += 8;
+  }
+  if (a.q2 === "Building custom workflows / GPTs") {
+    s["Waziri Garuba"] += 20; s["Daniel Marama"] += 20;
+    s["Sage"] += 15; s["Jasmine Brown"] += 8;
+  }
+
+  // ── Q3: Open text — keyword match against member profiles ─────────────────
+  const q3 = a.q3.toLowerCase();
+  const clusters: Array<[string[], string[]]> = [
+    [["team", "train", "employ", "staff", "people", "hire"],             ["Jackson Edens", "Waziri Garuba"]],
+    [["automat", "workflow", "repetitive", "manual", "process", "task"], ["Jasmine Brown", "Daniel Marama"]],
+    [["market", "content", "brand", "visib", "authority", "found"],      ["Patty Dominguez"]],
+    [["build", "custom", "agent", "gpt", "develop", "engineer", "code"], ["Waziri Garuba", "Sage", "Daniel Marama"]],
+    [["data", "metric", "analytic", "roi", "measure", "track"],          ["Daniel Marama"]],
+    [["scale", "headcount", "grow", "infrastructure", "equity"],         ["Daniel Marama", "Sage"]],
+    [["understand", "learn", "confused", "not sure", "overwhelm"],       ["Jackson Edens", "Patty Dominguez", "Jasmine Brown"]],
+    [["startup", "fund", "investor", "pitch", "launch"],                 ["Sage"]],
+    [["email", "social", "post", "copy", "messaging", "linkedin"],       ["Patty Dominguez"]],
+    [["time", "save", "hours", "busy", "capacity", "bandwidth"],         ["Jasmine Brown", "Daniel Marama"]],
+  ];
+  for (const [terms, members] of clusters) {
+    for (const term of terms) {
+      if (q3.includes(term)) {
+        for (const m of members) s[m] += 10;
+        break; // count each cluster once
+      }
+    }
+  }
+
+  // ── Q4: Primary driver — rank × 10 (max 60 pts) ───────────────────────────
+  const ranks = Q4_RANKS[a.q4];
+  if (ranks) {
+    for (const [m, rank] of Object.entries(ranks)) s[m] += rank * 10;
+  }
+
+  // ── Q5: Urgency signal ────────────────────────────────────────────────────
+  // "30 days" boosts members who deliver hands-on implementation fast
+  // "exploring" boosts educators/strategists who are right for early stage
+  if (a.q5 === "In the next 30 days — I need to move") {
+    s["Waziri Garuba"] += 10; s["Jasmine Brown"] += 10; s["Daniel Marama"] += 8;
+  }
+  if (a.q5 === "Just exploring for now") {
+    s["Jackson Edens"] += 8; s["Patty Dominguez"] += 8;
+  }
+
+  // Pick highest scorer
+  let best = "Patty Dominguez";
+  for (const [m, score] of Object.entries(s)) {
+    if (score > s[best]) best = m;
+  }
+  return best;
 }
 
 function isHotLead(a: Answers): boolean {
@@ -104,49 +215,55 @@ function isHotLead(a: Answers): boolean {
 
 const MEMBERS: Record<
   string,
-  { role: string; initials: string; description: string; photo: string | null }
+  { role: string; initials: string; description: string; photo: string | null; email: string }
 > = {
   "Patty Dominguez": {
-    role: "Host & Lead Strategist",
+    role: "Brand Authority & AI Visibility",
     initials: "PD",
     description:
-      "Patty helps business owners see the full AI landscape and map the path that fits their specific stage, goals, and capacity. Start here when you need strategic clarity before making any moves.",
-    photo: null,
+      "Patty helps service businesses close the gap between the authority they've earned and the authority buyers and AI can actually see. If your work is strong but the market isn't reflecting it — that's an authority interpretation problem, and it's exactly what she fixes.",
+    photo: "/members/patty.jpg",
+    email: "hello@moreleverage.io",
   },
-  Jackson: {
+  "Jackson Edens": {
     role: "Digital Infrastructure",
-    initials: "JA",
+    initials: "JE",
     description:
-      "Jackson builds the technical foundation — websites, automations, and integrated systems that scale without adding headcount. Your go-to when the team needs the right infrastructure underneath them.",
+      "Jackson builds the technical foundation — websites, automations, and integrated systems that scale without adding headcount. Your go-to when your team needs the right infrastructure underneath them.",
     photo: "/members/jackson.jpg",
+    email: "jackson@essaiconsulting.com",
   },
   Sage: {
-    role: "Content & Community",
-    initials: "SA",
+    role: "Embedded AI Engineering",
+    initials: "SF",
     description:
-      "Sage helps operators use AI to create better content faster — without losing their voice or their audience.",
+      "Sage brings the engineering firepower of Rosenblatt — elite AI engineers embedded directly into your business. Production-ready AI in weeks, not months. The right match when your company is ready to build AI-first and needs a technical team, not a consultant.",
     photo: null,
+    email: "sagesingularity@gmail.com",
   },
-  Daniel: {
-    role: "Analytics & Metrics",
-    initials: "DA",
+  "Daniel Marama": {
+    role: "AI Systems Architect",
+    initials: "DM",
     description:
-      "Daniel helps growing teams build the measurement infrastructure to prove — and improve — the ROI of every AI investment. If your business runs on data, this is where to start.",
+      "Daniel helps established companies ($5M–$50M) eliminate the Hiring Tax — the 10–15% of revenue lost to manual coordination. He architects AI Operating Systems that decouple revenue growth from headcount and build exit-ready infrastructure.",
     photo: "/members/daniel.jpg",
+    email: "daniel@maramamarketing.com",
   },
   "Jasmine Brown": {
     role: "Operations & Automation",
     initials: "JB",
     description:
-      "Jasmine designs the workflows and automations that take repetitive work off your plate for good — giving you back hours every week.",
+      "Jasmine designs, implements, and optimizes the systems and workflows that power organizations — reducing admin overhead and building scalable operational foundations. The right match when your business has the revenue but not the backend to support it.",
     photo: "/members/jasmine.jpg",
+    email: "jasmine@righthandsupport.com",
   },
   "Waziri Garuba": {
     role: "AI Systems & Strategy",
     initials: "WG",
     description:
-      "Waziri builds custom AI systems — agents, GPTs, and multi-tool workflows — for operators ready to move beyond off-the-shelf tools.",
+      "Waziri builds custom AI systems — agents, GPTs, and multi-tool workflows — for operators ready to move beyond off-the-shelf tools and into infrastructure that runs their business.",
     photo: "/members/waziri.jpg",
+    email: "waziri@harlemlabs.com",
   },
 };
 
@@ -287,7 +404,7 @@ export default function QuizPage() {
   }
 
   async function handleSubmit() {
-    const member = routeToMember(answers);
+    const member = scoreMembers(answers);
     const hot = isHotLead(answers);
     setMatched(member);
     setStep(6);
@@ -700,7 +817,7 @@ export default function QuizPage() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <a
-                href="#"
+                href={`mailto:${m.email}?subject=I took the AI Think Trust Quiz&body=Hi ${matched.split(" ")[0]},%0A%0AI just completed the AI Think Trust quiz and was matched with you. I'd love to connect.%0A%0A— ${answers.name}`}
                 style={{
                   background: C.accent,
                   color: "#fff",
@@ -713,7 +830,7 @@ export default function QuizPage() {
                   display: "block",
                 }}
               >
-                Book a Conversation with {matched.split(" ")[0]}
+                Email {matched.split(" ")[0]} Directly →
               </a>
               <a
                 href="https://us06web.zoom.us/meeting/register/W706Mw6WS4emTH3gtBufOg#/registration"
