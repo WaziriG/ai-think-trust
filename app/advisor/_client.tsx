@@ -6,6 +6,14 @@ import { ConversationProvider, useConversation } from "@elevenlabs/react";
 
 const AGENT_ID = "agent_1901k1trym39fhhvkr3ecs47nyj4";
 
+const MEMBER_PHOTOS = [
+  "/members/patty.jpg",
+  "/members/jackson.jpg",
+  "/members/daniel.jpg",
+  "/members/jasmine.jpg",
+  "/members/waziri.jpg",
+];
+
 const C = {
   accent: "#e53935",
   accentDim: "rgba(229,57,53,0.12)",
@@ -21,6 +29,42 @@ interface Message {
   content: string;
   sender: "user" | "sivraj";
   timestamp: Date;
+}
+
+// ─── BACKGROUND MONTAGE ──────────────────────────────────────────────────────
+
+function BackgroundMontage() {
+  return (
+    <>
+      <div style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 0,
+        display: "flex",
+        overflow: "hidden",
+      }}>
+        {MEMBER_PHOTOS.map((src, i) => (
+          <div
+            key={i}
+            style={{
+              flex: 1,
+              backgroundImage: `url(${src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center top",
+              filter: "grayscale(100%) blur(3px)",
+              transform: "scale(1.06)",
+            }}
+          />
+        ))}
+      </div>
+      <div style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 1,
+        background: "linear-gradient(to bottom, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.88) 55%, rgba(10,10,10,0.97) 100%)",
+      }} />
+    </>
+  );
 }
 
 // ─── OROB ───────────────────────────────────────────────────────────────────
@@ -236,11 +280,13 @@ function AdvisorInner() {
 
   return (
     <div style={{
-      background: C.bg,
+      background: "transparent",
       minHeight: "100vh",
       display: "flex",
       flexDirection: "column",
       fontFamily: "var(--font-geist), system-ui, sans-serif",
+      position: "relative",
+      zIndex: 2,
     }}>
 
       {/* NAV */}
@@ -462,6 +508,7 @@ export default function AdvisorClient() {
         }
         * { box-sizing: border-box; }
       `}</style>
+      <BackgroundMontage />
       <ConversationProvider>
         <AdvisorInner />
       </ConversationProvider>
