@@ -7,12 +7,12 @@ import { ConversationProvider, useConversation } from "@elevenlabs/react";
 const AGENT_ID = "agent_1901k1trym39fhhvkr3ecs47nyj4";
 
 const MEMBER_ORBS = [
-  { photo: "/members/patty.jpg",   name: "Patty",   pos: { top: -58,  left: -58  }, delay: 0.0 },
-  { photo: "/members/jackson.jpg", name: "Jackson", pos: { top: -68,  left: "27%"}, delay: 0.4 },
-  { photo: "/members/sage.jpg",    name: "Sage",    pos: { top: -58,  right: -58 }, delay: 0.8 },
-  { photo: "/members/daniel.jpg",  name: "Daniel",  pos: { top: "42%",right: -70 }, delay: 1.2 },
-  { photo: "/members/jasmine.jpg", name: "Jasmine", pos: { bottom: 148,right: -60 }, delay: 1.6 },
-  { photo: "/members/waziri.jpg",  name: "Waz",     pos: { top: "58%",left: -70  }, delay: 2.0 },
+  { photo: "/members/patty.jpg",   name: "Patty",   cls: "att-orb-1" },
+  { photo: "/members/jackson.jpg", name: "Jackson", cls: "att-orb-2" },
+  { photo: "/members/sage.jpg",    name: "Sage",    cls: "att-orb-3" },
+  { photo: "/members/daniel.jpg",  name: "Daniel",  cls: "att-orb-4" },
+  { photo: "/members/jasmine.jpg", name: "Jasmine", cls: "att-orb-5" },
+  { photo: "/members/waziri.jpg",  name: "Waz",     cls: "att-orb-6" },
 ];
 
 const C = {
@@ -38,34 +38,9 @@ function MemberOrbs() {
   return (
     <>
       {MEMBER_ORBS.map((orb) => (
-        <div
-          key={orb.name}
-          style={{
-            position: "fixed",
-            width: 144,
-            height: 144,
-            borderRadius: "50%",
-            overflow: "hidden",
-            border: "2px solid rgba(229,57,53,0.28)",
-            boxShadow: "0 0 28px rgba(229,57,53,0.1), inset 0 0 0 1px rgba(255,255,255,0.04)",
-            pointerEvents: "none",
-            zIndex: 3,
-            opacity: 0,
-            animationName: "orbfadein, orbfloat",
-            animationDuration: "1.2s, 9s",
-            animationDelay: `${orb.delay}s, ${orb.delay + 1.2}s`,
-            animationTimingFunction: "ease, ease-in-out",
-            animationFillMode: "forwards, none",
-            animationIterationCount: "1, infinite",
-            ...orb.pos,
-          }}
-        >
+        <div key={orb.name} className={`att-orb ${orb.cls}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={orb.photo}
-            alt=""
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
-          />
+          <img src={orb.photo} alt="" />
         </div>
       ))}
     </>
@@ -503,20 +478,57 @@ export default function AdvisorClient() {
       <style>{`
         @keyframes attspin {
           from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+          to   { transform: rotate(360deg); }
         }
         @keyframes attpulse {
           0%, 100% { box-shadow: 0 0 0 5px rgba(229,57,53,0.12); }
-          50% { box-shadow: 0 0 0 14px rgba(229,57,53,0.04); }
+          50%      { box-shadow: 0 0 0 14px rgba(229,57,53,0.04); }
         }
         @keyframes orbfadein {
-          from { opacity: 0; transform: scale(0.82); }
+          from { opacity: 0; transform: scale(0.85); }
           to   { opacity: 0.72; transform: scale(1); }
         }
-        @keyframes orbfloat {
-          0%, 100% { opacity: 0.72; }
-          50%      { opacity: 0.88; }
+
+        /* ── Orb base ── */
+        .att-orb {
+          position: fixed;
+          border-radius: 50%;
+          overflow: hidden;
+          border: 2px solid rgba(229,57,53,0.28);
+          box-shadow: 0 0 24px rgba(229,57,53,0.08);
+          pointer-events: none;
+          z-index: 3;
+          opacity: 0;
+          animation: orbfadein 1.4s ease forwards;
         }
+        .att-orb img {
+          width: 100%; height: 100%;
+          object-fit: cover; object-position: center top;
+          display: block;
+        }
+
+        /* ── Desktop: 3-per-side columns ── */
+        @media (min-width: 900px) {
+          .att-orb { width: 140px; height: 140px; }
+          .att-orb-1 { left: -34px; top: 10vh;  animation-delay: 0.1s; }
+          .att-orb-2 { left: -34px; top: 32vh;  animation-delay: 0.5s; }
+          .att-orb-3 { left: -34px; top: 54vh;  animation-delay: 0.9s; }
+          .att-orb-4 { right: -34px; top: 20vh; animation-delay: 0.3s; }
+          .att-orb-5 { right: -34px; top: 42vh; animation-delay: 0.7s; }
+          .att-orb-6 { right: -34px; top: 63vh; animation-delay: 1.1s; }
+        }
+
+        /* ── Tablet / mobile: 2-per-side, smaller ── */
+        @media (max-width: 899px) {
+          .att-orb { width: 86px; height: 86px; }
+          .att-orb-1 { left: -20px; top: 14vh;  animation-delay: 0.1s; }
+          .att-orb-2 { left: -20px; top: 40vh;  animation-delay: 0.5s; }
+          .att-orb-3 { display: none; }
+          .att-orb-4 { right: -20px; top: 26vh; animation-delay: 0.3s; }
+          .att-orb-5 { right: -20px; top: 53vh; animation-delay: 0.7s; }
+          .att-orb-6 { display: none; }
+        }
+
         * { box-sizing: border-box; }
       `}</style>
       <MemberOrbs />
