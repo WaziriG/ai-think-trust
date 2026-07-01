@@ -7,12 +7,15 @@ const members = [
   { initials: "WG", name: "Waziri Garuba", role: "AI Systems & Strategy", photo: "/members/waziri.jpg" },
 ];
 
+// Paste the July 8 Zoom registration link here once Jasmine sends it, then redeploy.
+const ZOOM_REGISTRATION_URL = "";
+
 const agendaItems = [
   { time: "0:00–0:05", label: "Welcome & Housekeeping" },
-  { time: "0:05–0:20", label: "Meet the Trust — Member Introductions" },
-  { time: "0:20–0:35", label: "Live Demo: AI Tools in Action" },
-  { time: "0:35–0:52", label: "Pain Killer Session — Live Problem Solving" },
-  { time: "0:52–0:58", label: "Pain Point Collection & Next Steps" },
+  { time: "0:05–0:30", label: "Strategic — AEO & Your Personal Brand" },
+  { time: "0:30–0:42", label: "Operational — Putting AEO Into Your Workflow" },
+  { time: "0:42–0:50", label: "Tactical — AI Visibility Self-Audit + Free GPT" },
+  { time: "0:50–0:58", label: "Live Q&A & Pain Points" },
   { time: "0:58–1:00", label: "Close & AI Entry Quiz CTA" },
 ];
 
@@ -91,7 +94,7 @@ export default function Home() {
           letterSpacing: "0.04em",
           marginBottom: 36,
         }}>
-          INTRODUCTORY WEBINAR — MAY 8, 2026
+          LIVE WEBINAR — JULY 8, 2026 · AEO & YOUR PERSONAL BRAND
         </div>
 
         <h1 style={{
@@ -141,7 +144,7 @@ export default function Home() {
               display: "inline-block",
             }}
           >
-            Register for May 8th Webinar
+            Register for July 8th Webinar
           </a>
           <a
             href="/quiz"
@@ -265,11 +268,12 @@ export default function Home() {
                 marginBottom: 20,
                 color: "var(--text)",
               }}>
-                Introductory Webinar
+                AEO & Your Personal Brand
               </h2>
               <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
                 {[
-                  { label: "Date", value: "Thursday, May 8, 2026" },
+                  { label: "Date", value: "Wednesday, July 8, 2026" },
+                  { label: "Time", value: "11:00 AM CT" },
                   { label: "Platform", value: "Zoom — registration link coming soon" },
                   { label: "Duration", value: "60 minutes" },
                 ].map((item) => (
@@ -280,26 +284,44 @@ export default function Home() {
                 ))}
               </div>
               <p style={{ color: "var(--muted)", fontSize: 15, lineHeight: 1.7, marginBottom: 32 }}>
-                Meet the full Trust, watch AI tools work live, and bring your real business problems.
-                Attendees leave with a free AI tool and a direct path to the right expert for their situation.
+                Answer Engine Optimization is the new SEO — how you show up when AI does the searching.
+                We break it down across three lanes: the strategy behind building a personal brand AI can find,
+                how to fold it into your workflow, and a free tool to audit your own visibility in minutes.
               </p>
-              <a
-                href="https://us06web.zoom.us/meeting/register/W706Mw6WS4emTH3gtBufOg#/registration"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  background: "var(--accent)",
-                  color: "#ffffff",
-                  padding: "13px 28px",
-                  borderRadius: 8,
-                  fontWeight: 700,
-                  fontSize: 14,
-                  display: "inline-block",
-                  textDecoration: "none",
-                }}
-              >
-                Register for the Webinar
-              </a>
+              {ZOOM_REGISTRATION_URL ? (
+                <a
+                  href={ZOOM_REGISTRATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: "var(--accent)",
+                    color: "#ffffff",
+                    padding: "13px 28px",
+                    borderRadius: 8,
+                    fontWeight: 700,
+                    fontSize: 14,
+                    display: "inline-block",
+                    textDecoration: "none",
+                  }}
+                >
+                  Register for the Webinar
+                </a>
+              ) : (
+                <span
+                  style={{
+                    background: "var(--accent-dim)",
+                    color: "var(--accent)",
+                    border: "1px solid var(--accent)",
+                    padding: "13px 28px",
+                    borderRadius: 8,
+                    fontWeight: 700,
+                    fontSize: 14,
+                    display: "inline-block",
+                  }}
+                >
+                  Registration link coming soon
+                </span>
+              )}
             </div>
 
             <div style={{
