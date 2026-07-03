@@ -41,19 +41,28 @@ function richText(content: string) {
   return [{ text: { content: content.slice(0, 1900) } }];
 }
 
+// Notion select options may not contain commas and cap at 100 chars —
+// e.g. quiz option "Build something custom (GPT, agent, workflow)" is stored
+// as "Build something custom (GPT / agent / workflow)".
+function selectValue(value: string) {
+  return { select: { name: value.replace(/, /g, " / ").replace(/,/g, " /").slice(0, 100) } };
+}
+
 function sharedProperties(lead: LeadPayload) {
-  return {
+  const props: Record<string, unknown> = {
     Name: { title: [{ text: { content: lead.name } }] },
     Email: { email: lead.email },
     "Submission ID": { rich_text: richText(lead.submissionId) },
-    "Matched Member": { select: { name: lead.routedTo } },
-    "Business Size": { select: { name: lead.q1 } },
-    "AI Experience": { select: { name: lead.q2 } },
     Challenge: { rich_text: richText(lead.q3 || "—") },
-    "Primary Goal": { select: { name: lead.q4 } },
-    Timeline: { select: { name: lead.q5 } },
     "Last Activity": { date: { start: new Date().toISOString() } },
   };
+  // Empty select values are invalid in the Notion API — set only what we have
+  if (lead.routedTo) props["Matched Member"] = selectValue(lead.routedTo);
+  if (lead.q1) props["Business Size"] = selectValue(lead.q1);
+  if (lead.q2) props["AI Experience"] = selectValue(lead.q2);
+  if (lead.q4) props["Primary Goal"] = selectValue(lead.q4);
+  if (lead.q5) props["Timeline"] = selectValue(lead.q5);
+  return props;
 }
 
 export async function upsertLead(lead: LeadPayload): Promise<boolean> {
