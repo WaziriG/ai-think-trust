@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { WEBINAR } from "@/lib/webinar";
 
 const C = {
   accent: "#e53935",
@@ -833,9 +834,10 @@ export default function QuizPage() {
                 Email {matched.split(" ")[0]} Directly →
               </a>
               <a
-                href="https://us06web.zoom.us/meeting/register/W706Mw6WS4emTH3gtBufOg#/registration"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={WEBINAR.registrationUrl || "/#webinar"}
+                {...(WEBINAR.registrationUrl
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
                 style={{
                   background: "transparent",
                   color: C.text,
@@ -849,7 +851,9 @@ export default function QuizPage() {
                   display: "block",
                 }}
               >
-                Register for the May 8th Webinar
+                {WEBINAR.registrationUrl
+                  ? `Register for the ${WEBINAR.dateLabel} Webinar — ${WEBINAR.title}`
+                  : `${WEBINAR.dateLabel} Webinar: ${WEBINAR.title} — Details`}
               </a>
               <Link
                 href="/"

@@ -1,3 +1,5 @@
+import { WEBINAR } from "@/lib/webinar";
+
 const members = [
   { initials: "PD", name: "Patty Dominguez", role: "Brand Authority & AI Visibility", photo: "/members/patty.jpg" },
   { initials: "JA", name: "Jackson", role: "Digital Infrastructure", photo: "/members/jackson.jpg" },
@@ -7,8 +9,9 @@ const members = [
   { initials: "WG", name: "Waziri Garuba", role: "AI Systems & Strategy", photo: "/members/waziri.jpg" },
 ];
 
-// Paste the July 8 Zoom registration link here once Jasmine sends it, then redeploy.
-const ZOOM_REGISTRATION_URL = "";
+// Registration link lives in lib/webinar.ts (shared with the quiz result page).
+// Paste the July 8 Zoom link there once Jasmine sends it, then redeploy.
+const ZOOM_REGISTRATION_URL = WEBINAR.registrationUrl;
 
 const agendaItems = [
   { time: "0:00–0:05", label: "Welcome & Housekeeping" },
