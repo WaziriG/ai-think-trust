@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { WEBINAR } from "@/lib/webinar";
+import { trackEvent } from "@/lib/gtm";
 
 const C = {
   accent: "#e53935",
@@ -410,6 +411,15 @@ export default function QuizPage() {
     setMatched(member);
     setStep(6);
 
+    trackEvent("quiz_complete", {
+      matched_member: member,
+      hot_lead: hot,
+      business_size: answers.q1,
+      ai_experience: answers.q2,
+      primary_goal: answers.q4,
+      timeline: answers.q5,
+    });
+
     try {
       await fetch("/api/quiz-submit", {
         method: "POST",
@@ -428,6 +438,7 @@ export default function QuizPage() {
     if (step === 5) {
       handleSubmit();
     } else {
+      if (step === 0) trackEvent("quiz_start");
       setStep((s) => s + 1);
     }
   }

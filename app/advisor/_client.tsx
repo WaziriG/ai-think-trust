@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import { ConversationProvider, useConversation } from "@elevenlabs/react";
+import { trackEvent } from "@/lib/gtm";
 
 const AGENT_ID = "agent_1901k1trym39fhhvkr3ecs47nyj4";
 
@@ -194,11 +195,27 @@ function AdvisorInner() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const sessionStartRef = useRef<number | null>(null);
+  const turnCountRef = useRef(0);
 
   const conversation = useConversation({
-    onConnect: () => setError(null),
-    onDisconnect: () => {},
+    onConnect: () => {
+      setError(null);
+      sessionStartRef.current = Date.now();
+      turnCountRef.current = 0;
+      trackEvent("advisor_session_start");
+    },
+    onDisconnect: () => {
+      const startedAt = sessionStartRef.current;
+      if (startedAt === null) return;
+      sessionStartRef.current = null;
+      trackEvent("advisor_session_end", {
+        duration_seconds: Math.round((Date.now() - startedAt) / 1000),
+        turn_count: turnCountRef.current,
+      });
+    },
     onMessage: (payload) => {
+      turnCountRef.current += 1;
       setMessages((prev) => [
         ...prev,
         {
