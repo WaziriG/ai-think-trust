@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
@@ -49,6 +50,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
         />
         {/* End Google Tag Manager (noscript) */}
         {children}
+        <Analytics />
       </body>
     </html>
   );
