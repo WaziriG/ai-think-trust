@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Think Trust · The Trusted Voices in AI</title>
+<meta name="description" content="The answers aren't at the surface. Six practitioners went down and got them, in six different directions, on real businesses. Whatever you are stuck on, one of us has been stuck there.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230A0A0A'/><circle cx='16' cy='16' r='6' fill='%23E53935'/></svg>">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  :root {
+    --sc-canvas:     #0A0A0A;
+    --sc-surface:    #161616;
+    --sc-ink:        #F5F5F5;
+    --sc-ink-soft:   #8A9098;
+    --sc-accent:     #E53935;
+    --sc-accent-ink: #0A0A0A;
+    --sc-font-display: "Geist", "Inter", system-ui, sans-serif;
+    --sc-font-text:    "Geist", "Inter", system-ui, sans-serif;
+    --sc-font-mono:    "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --ait-line: rgba(245,245,245,0.14);
+  }
+
+  /* ---------- rail: depth and the six. No log-book costume. -------------- */
+  .ait-rail {
+    position: fixed; left: 0; top: 0; bottom: 0; width: 132px;
+    padding: 26px 0 26px 26px; z-index: 300;
+    display: flex; flex-direction: column; justify-content: space-between;
+    font-family: var(--sc-font-mono); font-size: 12px; letter-spacing: 0.06em;
+    color: var(--sc-ink-soft); pointer-events: none;
+  }
+  .ait-rail__mark { width: 88px; opacity: 0.9; }
+  .ait-rail__depth { display: block; font-size: 20px; color: var(--sc-ink);
+    font-variant-numeric: tabular-nums; line-height: 1.1; letter-spacing: -0.01em; }
+  .ait-gauge { list-style: none; margin: 14px 0 0; padding: 0; }
+  .ait-gauge li { display: flex; align-items: center; gap: 8px; padding: 3px 0;
+    opacity: 0.28; transition: opacity 420ms ease-out; }
+  .ait-gauge li[data-lead="1"] { opacity: 1; }
+  .ait-gauge li[data-lead="0"] { opacity: 0.6; }
+  .ait-gauge__k { color: var(--sc-ink); letter-spacing: 0.1em; }
+  .ait-gauge__bar { display: block; height: 1px; width: 0; background: var(--sc-accent);
+    transition: width 420ms ease-out; }
+
+  /* Every copy block on this page is anchored to the bottom third, and the
+     world ends on bright sand. The stock band tops out at 58%, which is the
+     exact case verify.md warns about, so the scrim is reshaped to the text
+     rather than laid over the whole frame. */
+  .sc-world__scrim {
+    background: linear-gradient(to top,
+      color-mix(in oklab, var(--sc-canvas) 97%, transparent) 0%,
+      color-mix(in oklab, var(--sc-canvas) 89%, transparent) 26%,
+      color-mix(in oklab, var(--sc-canvas) 60%, transparent) 50%,
+      color-mix(in oklab, var(--sc-canvas) 24%, transparent) 70%,
+      transparent 88%);
+  }
+
+  /* ---------- copy ------------------------------------------------------- */
+  /* Capped so it sets as TWO lines, not four. At xl it wrapped mid-phrase and
+     pushed white type up into the bright surface, which is where the contrast
+     failed. Two lines also seats the block lower, inside the scrim. */
+  .ait-h1 { margin: 0; line-height: 0.98; letter-spacing: -0.035em; font-weight: 800;
+    font-size: clamp(34px, 5.6vw, 76px); text-wrap: balance; }
+  .ait-h1 em { font-style: normal; color: var(--sc-accent); display: block; }
+  .ait-lede { color: var(--sc-ink-soft); max-width: 32ch; margin: 22px 0 0; line-height: 1.65; }
+  .ait-say h2 { margin: 0 0 14px; letter-spacing: -0.028em; line-height: 1.1; max-width: 20ch; }
+  .ait-say p { margin: 0; color: var(--sc-ink-soft); line-height: 1.7; max-width: 36ch; }
+
+  /* line assembly, driven off the block's own window opacity */
+  .ait-line { display: block; overflow: hidden; }
+  .ait-line > span { display: block; transform: translateY(105%);
+    transition: transform 620ms cubic-bezier(0.16,0.84,0.32,1); }
+  .is-writing .ait-line > span { transform: translateY(0); }
+  .is-writing .ait-line:nth-child(2) > span { transition-delay: 70ms; }
+  .is-writing .ait-line:nth-child(3) > span { transition-delay: 140ms; }
+  .is-writing .ait-line:nth-child(4) > span { transition-delay: 210ms; }
+  .ait-accent { color: var(--sc-accent); }
+
+  /* soft ink put this at 4.39:1 over the water on a phone; it is a small label,
+     not large display type, so it needs the full 4.5:1 */
+  .ait-block--side .sc-label { color: var(--sc-ink); }
+
+  /* ---------- the six directions: the dwell layer ------------------------ */
+  .ait-dirs { list-style: none; margin: 0; padding: 0; max-width: 34ch; }
+  .ait-dirs li {
+    padding: 10px 0 10px 16px; border-left: 1px solid var(--ait-line);
+    opacity: 0.12;
+    font-size: clamp(17px, 2.1vw, 22px); line-height: 1.35; letter-spacing: -0.015em;
+    color: var(--sc-ink);
+  }
+  .ait-dirs em { display: block; font-style: normal; font-family: var(--sc-font-mono);
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--sc-ink-soft); margin-top: 5px; }
+
+  /* The left half of this leg is empty water while the six lines sit right.
+     A portrait surfaces there in sync with whichever line is legible, so the
+     attribution is unmistakable. Masked, desaturated and dimmed so it reads as
+     a face a dive light found, not a headshot pasted on a photo. */
+  .ait-faces {
+    position: absolute; left: 248px; top: 44%; width: 400px; height: 400px;
+    transform: translateY(-50%); pointer-events: none; z-index: 1;
+  }
+  /* The wrapper is the porthole: a fixed circle of light in a fixed place, so
+     every practitioner surfaces at the same spot and the same size. */
+  .ait-faces figure {
+    position: absolute; inset: 0; margin: 0; overflow: hidden;
+    opacity: 0; will-change: opacity, transform;
+    -webkit-mask-image: radial-gradient(ellipse 39% 44% at 50% 42%, #000 0%, rgba(0,0,0,0.9) 46%, rgba(0,0,0,0.28) 66%, transparent 82%);
+    mask-image: radial-gradient(ellipse 39% 44% at 50% 42%, #000 0%, rgba(0,0,0,0.9) 46%, rgba(0,0,0,0.28) 66%, transparent 82%);
+  }
+  /* The six source headshots are framed completely differently: Sage is a small
+     seated full body, Waziri sits far right, Jackson is a tight crop. Each one
+     gets its own translate and zoom so the HEAD lands at the porthole's centre.
+     Translate runs first, then the scale expands about that same point. */
+  .ait-faces img {
+    display: block; width: 100%; height: 100%; object-fit: cover;
+    transform-origin: 50% 42%;
+    transform: scale(var(--s, 1.35)) translate(var(--tx, 0%), var(--ty, 0%));
+    filter: grayscale(1) sepia(1) hue-rotate(172deg) saturate(2.1)
+            brightness(0.74) contrast(1.14);
+  }
+
+  /* ---------- the peak: all six, as equals -------------------------------
+     Six identical cards across the full frame. Nobody is bigger than anybody
+     else; the sounding shows only as a hairline and a small label, so the
+     page can still suggest a starting point without ranking the collective. */
+  .ait-block--wide { inset-inline: 168px 56px; max-width: none; bottom: clamp(2rem, 9vh, 6rem); }
+  .ait-all { list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; }
+  .ait-all li { opacity: 0; transform: translateY(14px);
+    transition: opacity 620ms ease-out, transform 620ms cubic-bezier(0.16,0.84,0.32,1); }
+  .ait-all.is-open li { opacity: 1; transform: none; }
+  .ait-all li:nth-child(2) { transition-delay: 60ms; }
+  .ait-all li:nth-child(3) { transition-delay: 120ms; }
+  .ait-all li:nth-child(4) { transition-delay: 180ms; }
+  .ait-all li:nth-child(5) { transition-delay: 240ms; }
+  .ait-all li:nth-child(6) { transition-delay: 300ms; }
+  .ait-all__rule { display: block; height: 2px; background: transparent; margin-bottom: 12px; }
+  .ait-all li[data-start="1"] .ait-all__rule { background: var(--sc-accent); }
+  .ait-all img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover;
+    border-radius: 3px; }
+  .ait-all h3 { margin: 12px 0 0; font-size: clamp(15px, 1.15vw, 18px); font-weight: 700;
+    letter-spacing: -0.015em; line-height: 1.2; color: var(--sc-ink); }
+  .ait-all__role { font-family: var(--sc-font-mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--sc-ink-soft); margin: 5px 0 0; line-height: 1.5; }
+  .ait-all__bio { color: var(--sc-ink-soft); font-size: 12.5px; line-height: 1.5;
+    margin: 8px 0 0; }
+  .ait-all__start { display: none; font-family: var(--sc-font-mono); font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--sc-accent); margin: 7px 0 0; }
+  .ait-all li[data-start="1"] .ait-all__start { display: block; }
+
+  /* ---------- close ------------------------------------------------------
+     Deliberate hierarchy: the webinar dominates, then the quiz, then SIVRAJ,
+     then social. Two columns on desktop so the stack does not run off the
+     bottom of a fixed overlay. */
+  .ait-close { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.05fr);
+    grid-template-areas: "head opts" "copy opts"; gap: 4px 48px; align-content: end;
+    max-width: 1040px; }
+  .ait-close h2 { grid-area: head; }
+  .ait-close > p.sc-body { grid-area: copy; }
+  .ait-next, .ait-also, .ait-opt, .ait-close__meta { grid-column: 2; }
+  .ait-next { grid-row: 1; }
+
+  .ait-next { display: grid; gap: 2px; text-decoration: none; color: var(--sc-ink);
+    background: linear-gradient(180deg, rgba(229,57,53,0.16), rgba(229,57,53,0.06));
+    border: 1px solid var(--sc-accent); border-radius: 4px;
+    padding: 18px 22px 16px; margin: 0 0 8px;
+    transition: transform 300ms ease-out, background 300ms ease-out; }
+  .ait-next:hover { transform: translateY(-2px);
+    background: linear-gradient(180deg, rgba(229,57,53,0.26), rgba(229,57,53,0.10)); }
+  .ait-next[aria-disabled="true"] { pointer-events: none; }
+  .ait-next__eyebrow { font-family: var(--sc-font-mono); font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--sc-accent); }
+  .ait-next__date { font-size: clamp(22px, 2.5vw, 32px); font-weight: 700;
+    letter-spacing: -0.025em; line-height: 1.1; }
+  .ait-next__time { font-family: var(--sc-font-mono); font-size: 12px;
+    letter-spacing: 0.08em; color: var(--sc-ink-soft); }
+  .ait-next__go { display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-top: 12px; padding-top: 12px;
+    border-top: 1px solid rgba(229,57,53,0.35);
+    font-family: var(--sc-font-mono); font-size: 12px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--sc-ink); }
+  .ait-next__go i { font-style: normal; color: var(--sc-accent); }
+  .ait-also { font-family: var(--sc-font-mono); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--sc-ink-soft); margin: 0 0 14px; }
+
+  .ait-opt { display: block; text-decoration: none; padding: 11px 0 11px 14px;
+    border-left: 1px solid var(--ait-line); margin-bottom: 8px;
+    transition: border-color 300ms ease-out; }
+  .ait-opt:hover { border-left-color: var(--sc-accent); }
+  .ait-opt b { display: block; color: var(--sc-ink); font-size: 17px; font-weight: 600;
+    letter-spacing: -0.01em; }
+  .ait-opt span { display: block; color: var(--sc-ink-soft); font-size: 13px;
+    line-height: 1.5; margin-top: 2px; }
+  .ait-opt--sm b { font-size: 15px; }
+  .ait-opt--sm span { font-size: 12px; }
+
+  .ait-close h2 { margin: 0 0 14px; letter-spacing: -0.028em; line-height: 1.08; }
+  .ait-close > p.sc-body { color: var(--sc-ink-soft); margin: 0; line-height: 1.6; max-width: 34ch; }
+  .ait-cta { display: inline-flex; align-items: center; text-decoration: none;
+    font-family: var(--sc-font-mono); font-size: 13px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--sc-accent-ink); background: var(--sc-accent);
+    padding: 15px 24px; border-radius: 2px; min-height: 44px;
+    transition: transform 300ms ease-out; }
+  .ait-cta:hover { transform: translateY(-2px); }
+  .ait-cta[aria-disabled="true"] { background: transparent; color: var(--sc-ink-soft);
+    border: 1px solid var(--ait-line); pointer-events: none; }
+  .ait-close__meta { font-family: var(--sc-font-mono); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--sc-ink-soft); margin: 10px 0 0; }
+  /* the two social links measured 64x13 and 56x13, under the 44px tap target */
+  .ait-close__meta a { color: var(--sc-ink-soft); display: inline-flex; align-items: center;
+    min-height: 44px; padding: 0 12px; margin-left: -12px; }
+
+  /* Clear the instrument rail. Lead-anchored copy otherwise starts underneath
+     the depth readout and the gauge. */
+  @media (min-width: 901px) {
+    .sc-copy--lead { left: 168px; }
+    .sc-copy { max-width: min(46rem, 68vw); }
+  }
+
+  @media (max-width: 900px) {
+    /* On a phone the notes move to the TOP of the frame, where a bottom band
+       reaches nothing. Two gradients, both ends covered, middle left alone. */
+    .sc-world__scrim {
+      background:
+        linear-gradient(to top,
+          color-mix(in oklab, var(--sc-canvas) 97%, transparent) 0%,
+          color-mix(in oklab, var(--sc-canvas) 91%, transparent) 30%,
+          color-mix(in oklab, var(--sc-canvas) 64%, transparent) 52%,
+          color-mix(in oklab, var(--sc-canvas) 28%, transparent) 70%,
+          transparent 84%),
+        linear-gradient(to bottom,
+          color-mix(in oklab, var(--sc-canvas) 90%, transparent) 0%,
+          color-mix(in oklab, var(--sc-canvas) 64%, transparent) 16%,
+          color-mix(in oklab, var(--sc-canvas) 24%, transparent) 28%,
+          transparent 40%);
+    }
+    .ait-rail { width: 100%; height: auto; bottom: auto; inset-inline: 0;
+      flex-direction: row; align-items: center; justify-content: space-between;
+      padding: 14px 18px;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.75), transparent); }
+    .ait-rail__mark { width: 66px; }
+    .ait-rail__depth { font-size: 16px; }
+    .ait-gauge { display: flex; gap: 9px; margin: 0; }
+    .ait-gauge__bar { display: none; }
+    .sc-copy { max-width: min(46rem, 88vw); }
+    .ait-block--side { bottom: auto; top: clamp(5rem, 16vh, 9rem); text-align: left; }
+    .ait-dirs li { font-size: 16px; padding: 7px 0 7px 12px; }
+    .ait-faces { left: 16px; top: 27%; width: 150px; height: 150px; }
+    .ait-block--wide { inset-inline: 18px; bottom: clamp(1.5rem, 7vh, 4rem); }
+    .ait-all { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .ait-all h3 { font-size: 14px; margin-top: 8px; }
+    .ait-all__bio { display: none; }
+    .ait-close { grid-template-columns: 1fr; grid-template-areas: "head" "copy" "opts"; gap: 10px 0; }
+    .ait-next, .ait-also, .ait-opt, .ait-close__meta { grid-column: 1; }
+    .ait-next { grid-row: auto; }
+    .ait-close > p.sc-body { font-size: 14px; }
+    .ait-next__date { font-size: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ait-line > span { transform: none; transition: none; }
+    .ait-all li { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+<!-- Google Tag Manager. layout.tsx does not wrap a static public/ file, so
+     the container is loaded here directly or the homepage reports nothing. -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTDL6FW6');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTDL6FW6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<aside class="ait-rail" aria-label="Position" data-sc-verify-state="">
+  <img class="ait-rail__mark" src="assets/logo-reverse.svg" alt="AI Think Trust">
+  <div>
+    <span class="ait-rail__depth" id="ait-depth">0 m</span>
+    <ol class="ait-gauge" id="ait-gauge" aria-label="Who this is sounding like">
+      <li data-sig="visibility"><span class="ait-gauge__k">PD</span><i class="ait-gauge__bar"></i></li>
+      <li data-sig="infrastructure"><span class="ait-gauge__k">JE</span><i class="ait-gauge__bar"></i></li>
+      <li data-sig="engineering"><span class="ait-gauge__k">SF</span><i class="ait-gauge__bar"></i></li>
+      <li data-sig="architecture"><span class="ait-gauge__k">DM</span><i class="ait-gauge__bar"></i></li>
+      <li data-sig="operations"><span class="ait-gauge__k">JB</span><i class="ait-gauge__bar"></i></li>
+      <li data-sig="systems"><span class="ait-gauge__k">WG</span><i class="ait-gauge__bar"></i></li>
+    </ol>
+  </div>
+  <span></span>
+</aside>
+
+<div data-sc-mode="worldflight" data-sc-seam="0.12">
+
+  <div data-sc-world>
+    <div data-sc-segment data-sc-w="1.4" data-sc-linger="0.10" data-sc-waypoint="Surface">
+      <img class="sc-world__poster" src="assets/p1.jpg" alt="" decoding="async">
+      <video data-sc-src="assets/leg1.mp4" data-sc-src-mobile="assets/leg1-m.mp4" playsinline muted></video>
+    </div>
+    <div data-sc-segment data-sc-w="1.3" data-sc-linger="0.20" data-sc-waypoint="−60 m">
+      <img class="sc-world__poster" src="assets/p2.jpg" alt="" decoding="async">
+      <video data-sc-src="assets/leg2.mp4" data-sc-src-mobile="assets/leg2-m.mp4" playsinline muted></video>
+    </div>
+    <div data-sc-segment data-sc-w="1.4" data-sc-linger="0.24" data-sc-waypoint="−220 m">
+      <img class="sc-world__poster" src="assets/p3.jpg" alt="" decoding="async">
+      <video data-sc-src="assets/leg3.mp4" data-sc-src-mobile="assets/leg3-m.mp4" playsinline muted></video>
+    </div>
+    <div data-sc-segment data-sc-w="2.0" data-sc-linger="0.30" data-sc-waypoint="−500 m">
+      <img class="sc-world__poster" src="assets/p4.jpg" alt="" decoding="async">
+      <video data-sc-src="assets/leg4.mp4" data-sc-src-mobile="assets/leg4-m.mp4" playsinline muted></video>
+    </div>
+    <div data-sc-segment data-sc-w="2.8" data-sc-linger="0.42" data-sc-waypoint="−850 m">
+      <img class="sc-world__poster" src="assets/p5.jpg" alt="" decoding="async">
+      <video data-sc-src="assets/leg5.mp4" data-sc-src-mobile="assets/leg5-m.mp4" playsinline muted></video>
+    </div>
+    <div data-sc-segment data-sc-w="1.5" data-sc-linger="0.16" data-sc-waypoint="Floor">
+      <img class="sc-world__poster" src="assets/p6.jpg" alt="" decoding="async">
+      <video data-sc-src="assets/leg6.mp4" data-sc-src-mobile="assets/leg6-m.mp4" playsinline muted></video>
+    </div>
+  </div>
+
+  <div data-sc-world-copy>
+    <div class="sc-world__scrim sc-scrim sc-scrim--band"></div>
+
+    <div class="sc-scrim sc-scrim--lead" data-sc-copy data-sc-window="hero"
+         style="z-index:0" aria-hidden="true"></div>
+
+    <!-- 1 · the promise, said in their own words -->
+    <div class="sc-copy sc-copy--lead" data-sc-copy data-sc-window="hero">
+      <h1 class="sc-display sc-display--xl ait-h1">The Answers Aren't<em>At The Surface.</em></h1>
+      <p class="sc-lede ait-lede">So six of us went down and got them. Six different corners of AI,
+        learned on real businesses.</p>
+    </div>
+
+    <!-- 2 · the problem, plainly -->
+    <div class="sc-copy sc-copy--trail" data-sc-copy data-sc-window="0.148 0.252 0.30 0.28">
+      <div class="ait-say" data-ait-write>
+        <h2 class="sc-display sc-display--md">
+          <span class="ait-line"><span>The flood of AI information</span></span>
+          <span class="ait-line"><span>is overwhelming.</span></span>
+          <span class="ait-line"><span class="ait-accent">We know.</span></span>
+        </h2>
+        <p class="sc-body" style="margin-left:auto">The problem was never too little advice. It
+          is that you cannot tell who actually knows from who is just loud, and the noise keeps
+          getting louder.</p>
+      </div>
+    </div>
+
+    <!-- 3 · THE BELIEF. The one sentence the page exists to install. -->
+    <div class="sc-copy sc-copy--lead" data-sc-copy data-sc-window="0.270 0.388 0.28 0.26">
+      <div class="ait-say" data-ait-write>
+        <h2 class="sc-display sc-display--lg">
+          <span class="ait-line"><span>You don't have to</span></span>
+          <span class="ait-line"><span>figure this out.</span></span>
+          <span class="ait-line"><span>You just have to know</span></span>
+          <span class="ait-line"><span class="ait-accent">who to ask.</span></span>
+        </h2>
+        <p class="sc-body">Six of us already did, in six different directions, on our own clients,
+          with our own money and our own mistakes. Whatever you are stuck on, one of us has
+          been stuck there.</p>
+      </div>
+    </div>
+
+    <!-- 4 · how it works: six directions. This is the dwell layer. -->
+    <div class="sc-copy sc-copy--lead ait-block--side" data-sc-copy data-sc-window="0.400 0.588 0.10 0.12">
+      <p class="sc-label" style="margin:0 0 4px">Six directions</p>
+    </div>
+    <div class="ait-faces" id="ait-faces" aria-hidden="true">
+      <figure style="--tx:4%;--ty:6%;--s:1.34"><img src="assets/patty.jpg" alt=""></figure>
+      <figure style="--tx:3%;--ty:16%;--s:1.28"><img src="assets/jackson.jpg" alt=""></figure>
+      <figure style="--tx:2%;--ty:16%;--s:1.80"><img src="assets/sage.jpg" alt=""></figure>
+      <figure style="--tx:-3%;--ty:20%;--s:1.34"><img src="assets/daniel.jpg" alt=""></figure>
+      <figure style="--tx:5%;--ty:30%;--s:1.40"><img src="assets/jasmine.jpg" alt=""></figure>
+      <figure style="--tx:10%;--ty:24%;--s:1.42"><img src="assets/waziri.jpg" alt=""></figure>
+    </div>
+
+    <div class="sc-copy sc-copy--trail" data-sc-copy data-sc-window="0.398 0.590 0.08 0.10">
+      <ul class="ait-dirs" id="ait-dirs">
+        <li data-sig="visibility">People should know who I am by now.<em>Patty Dominguez</em></li>
+        <li data-sig="infrastructure">The site and the systems are held together with tape.<em>Jackson Edens</em></li>
+        <li data-sig="engineering">I need engineers, not another consultant.<em>Sage</em></li>
+        <li data-sig="architecture">I'm paying for coordination I shouldn't need.<em>Daniel Marama</em></li>
+        <li data-sig="operations">The admin is eating the business.<em>Jasmine Brown</em></li>
+        <li data-sig="systems">Off-the-shelf tools stopped being enough.<em>Waziri Garuba</em></li>
+      </ul>
+    </div>
+
+    <!-- 5 · PEAK. All six. Yours leads, nobody is hidden. -->
+    <div class="sc-copy sc-copy--lead" data-sc-copy data-sc-window="0.606 0.671 0.24 0.34">
+      <h2 class="sc-display sc-display--md" style="margin:0;max-width:13ch;letter-spacing:-0.028em">
+        Here's who to ask.</h2>
+    </div>
+    <div class="sc-copy sc-copy--lead ait-block--wide" data-sc-copy data-sc-window="0.673 0.858 0.14 0.12">
+      <ul class="ait-all" id="ait-all"></ul>
+    </div>
+
+    <!-- 6 · close -->
+    <div class="sc-copy sc-copy--lead" data-sc-copy data-sc-window="finale">
+      <div class="ait-close">
+        <h2 class="sc-display sc-display--lg" style="max-width:13ch">Dive in with us.</h2>
+        <p class="sc-body">The six of us meet to compare what actually worked and what did not.
+          We open that room to operators like you. One hour, no pitch, and you leave with
+          something you can use on Monday.</p>
+
+        <!-- TIER 1 · the webinar. Dominant by design. -->
+        <a class="ait-next" id="ait-cta" href="#" aria-disabled="true">
+          <span class="ait-next__eyebrow">Next session</span>
+          <span class="ait-next__date" id="ait-next-date">&nbsp;</span>
+          <span class="ait-next__time" id="ait-next-time">&nbsp;</span>
+          <span class="ait-next__go"><span id="ait-cta-label">Join the next session</span><i>&rarr;</i></span>
+        </a>
+        <p class="ait-also" id="ait-also">&nbsp;</p>
+
+        <!-- TIER 2 · the quiz -->
+        <a class="ait-opt" href="/quiz">
+          <b>Take the two minute quiz</b>
+          <span>Answer five questions and we will point you at the right one of us.</span>
+        </a>
+
+        <!-- TIER 3 · SIVRAJ -->
+        <a class="ait-opt ait-opt--sm" href="/advisor">
+          <b>Talk to SIVRAJ</b>
+          <span>Our AI advisor. Ask it something right now.</span>
+        </a>
+
+        <!-- TIER 4 · social -->
+        <p class="ait-close__meta">
+          <a href="https://www.linkedin.com/company/ai-think-trust/">LinkedIn</a> ·
+          <a href="https://www.youtube.com/@aithinktrust">YouTube</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div data-sc-spacer aria-hidden="true"></div>
+</div>
+
+<script src="scrollcraft.js"></script>
+<script>
+/* ============================================================================
+   THE SOUNDING (v2)
+   Reads which of the six directions you slowed down on, then at the peak brings
+   ALL SIX forward with yours leading. It orders the collective, it never hides
+   five of them. Engine untouched: reads --sc-seg / --sc-segp and sc:waypoint.
+   ========================================================================== */
+(function () {
+  var TRUST = {
+    visibility: { k: 'PD', name: 'Patty Dominguez', role: 'Brand Authority & AI Visibility',
+      img: 'assets/patty.jpg',
+      bio: 'Closes the gap between the authority you have earned and the authority buyers and AI can actually see.' },
+    infrastructure: { k: 'JE', name: 'Jackson Edens', role: 'Digital Infrastructure',
+      img: 'assets/jackson.jpg',
+      bio: 'Builds the foundation. Websites, automations, and integrated systems that scale without adding headcount.' },
+    engineering: { k: 'SF', name: 'Sage', role: 'Embedded AI Engineering',
+      img: 'assets/sage.jpg',
+      bio: 'Puts real AI engineers inside your business. Production ready in weeks, not months.' },
+    architecture: { k: 'DM', name: 'Daniel Marama', role: 'AI Systems Architect',
+      img: 'assets/daniel.jpg',
+      bio: 'Works with $5M to $50M companies on the Hiring Tax, the 10 to 15% of revenue lost to manual coordination.' },
+    operations: { k: 'JB', name: 'Jasmine Brown', role: 'Operations & Automation',
+      img: 'assets/jasmine.jpg',
+      bio: 'Designs the backend your revenue already outgrew. Less admin, and systems that hold.' },
+    systems: { k: 'WG', name: 'Waziri Garuba', role: 'AI Systems & Strategy',
+      img: 'assets/waziri.jpg',
+      bio: 'Builds custom agents, GPTs, and multi-tool workflows for operators past off-the-shelf tools.' }
+  };
+  var ORDER = ['visibility', 'infrastructure', 'engineering', 'architecture', 'operations', 'systems'];
+  var DIRS_LEG = 3, PEAK_LEG = 4;
+
+  var dwell = {}; ORDER.forEach(function (s) { dwell[s] = 0; });
+  var opened = false, last = 0;
+
+  var railEl  = document.querySelector('.ait-rail');
+  var depthEl = document.getElementById('ait-depth');
+  var dirsEl  = document.getElementById('ait-dirs');
+  var dirs    = [].slice.call(dirsEl.querySelectorAll('li'));
+  var faces   = [].slice.call(document.querySelectorAll('#ait-faces figure'));
+  var allEl   = document.getElementById('ait-all');
+  var gaugeEls = {};
+  [].forEach.call(document.querySelectorAll('#ait-gauge li'), function (li) { gaugeEls[li.dataset.sig] = li; });
+
+  /* Depth stops are the legs' own waypoints, so the readout never contradicts
+     the label. Deriving it from leg count reads −260 m under a −40 m waypoint. */
+  var STOPS = [0, 60, 220, 500, 850, 1000, 1000];
+  function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n); }
+  function state() {
+    var seg = parseInt(cssVar('--sc-seg'), 10) || 0;
+    var segp = parseFloat(cssVar('--sc-segp')) || 0;
+    return { seg: Math.max(0, Math.min(seg, STOPS.length - 2)), segp: Math.min(Math.max(segp, 0), 1) };
+  }
+
+  function paintDepth(st) {
+    var m = STOPS[st.seg] + (STOPS[st.seg + 1] - STOPS[st.seg]) * st.segp;
+    m = Math.round(m / 10) * 10;
+    depthEl.textContent = (m === 0 ? '0' : '−' + m.toLocaleString()) + ' m';
+  }
+
+  /* The six arrive one at a time as leg 4 plays, so dwell can actually tell
+     them apart. All at full opacity at once would score them all the same. */
+  function paintDirs(st) {
+    if (st.seg !== DIRS_LEG) {
+      if (st.seg < DIRS_LEG) dirs.forEach(function (li) { li.style.opacity = '0.12'; });
+      faces.forEach(function (im) { im.style.opacity = '0'; });
+      return null;
+    }
+    // A travelling falloff rather than six discrete steps: something is always
+    // moving, and legibility is a continuous number dwell can weight against.
+    var pos = st.segp * ORDER.length, w = [];
+    dirs.forEach(function (li, i) {
+      var on = Math.max(0, 1 - Math.abs(pos - (i + 0.5)) / 1.15);
+      w[i] = on;
+      li.style.opacity = (0.12 + on * 0.88).toFixed(3);
+      li.style.borderLeftColor = on > 0.55 ? 'var(--sc-accent)' : 'var(--ait-line)';
+      if (faces[i]) {
+        faces[i].style.opacity = (on * 0.96).toFixed(3);
+        faces[i].style.transform = 'scale(' + (1.06 - on * 0.06).toFixed(4) + ')';
+      }
+    });
+    return w;
+  }
+
+  function paintGauge() {
+    var max = Math.max.apply(null, ORDER.map(function (s) { return dwell[s]; }));
+    var lead = leader();
+    ORDER.forEach(function (s) {
+      var li = gaugeEls[s]; if (!li) return;
+      var r = max > 0 ? dwell[s] / max : 0;
+      li.setAttribute('data-lead', s === lead ? '1' : (r > 0.3 ? '0' : '-1'));
+      li.querySelector('.ait-gauge__bar').style.width = Math.round(r * 26) + 'px';
+    });
+  }
+
+  function leader() {
+    var best = null, bv = -1;
+    ORDER.forEach(function (s) { if (dwell[s] > bv) { bv = dwell[s]; best = s; } });
+    return bv <= 0 ? null : best;
+  }
+
+  function openAll() {
+    if (opened) return;
+    opened = true;
+    var start = leader() || 'systems';
+    allEl.innerHTML = '';
+    ORDER.forEach(function (sig) {
+      var m = TRUST[sig], li = document.createElement('li');
+      if (sig === start) li.setAttribute('data-start', '1');
+      var rule = document.createElement('span'); rule.className = 'ait-all__rule';
+      var img = document.createElement('img');
+      img.src = m.img; img.alt = m.name + ', ' + m.role; img.loading = 'lazy';
+      var h3 = document.createElement('h3'); h3.textContent = m.name;
+      var role = document.createElement('p'); role.className = 'ait-all__role';
+      role.textContent = m.role;
+      var st = document.createElement('p'); st.className = 'ait-all__start';
+      st.textContent = 'Start here';
+      var bio = document.createElement('p'); bio.className = 'ait-all__bio';
+      bio.textContent = m.bio;
+      [rule, img, h3, role, st, bio].forEach(function (n) { li.appendChild(n); });
+      allEl.appendChild(li);
+    });
+    requestAnimationFrame(function () { allEl.classList.add('is-open'); });
+  }
+
+  function tick(now) {
+    var dt = Math.min(now - last, 60); last = now;
+    var st = state();
+    paintDepth(st);
+    var w = paintDirs(st);
+    if (!opened && w) {
+      var block = dirsEl.closest('[data-sc-copy]');
+      var op = block ? (parseFloat(getComputedStyle(block).opacity) || 0) : 1;
+      if (op > 0.4) {
+        for (var i = 0; i < ORDER.length; i++) dwell[ORDER[i]] += dt * op * w[i];
+        paintGauge();
+      }
+    }
+    if (st.seg >= PEAK_LEG) openAll();
+
+    // The harness cannot see a bespoke fixed layer, so report what actually
+    // paints: the depth digits, each line's rendered legibility, the current
+    // leader, and whether the six have arrived. Rounded rendered values only.
+    railEl.setAttribute('data-sc-verify-state',
+      depthEl.textContent + '|' +
+      (w ? w.map(function (v) { return v.toFixed(1); }).join('') : '------') + '|' +
+      (leader() || '-') + '|' + (opened ? 'open' : 'shut'));
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(function (t) { last = t; requestAnimationFrame(tick); });
+})();
+
+/* ---- lines write themselves as each block becomes legible ---------------- */
+(function () {
+  var els = [].slice.call(document.querySelectorAll('[data-ait-write]'));
+  (function loop() {
+    els.forEach(function (el) {
+      var b = el.closest('[data-sc-copy]'); if (!b) return;
+      el.classList.toggle('is-writing', (parseFloat(getComputedStyle(b).opacity) || 0) > 0.35);
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ---- close. Real AITT schedule, from Jasmine's calendar invites (Aug 21 2026).
+   WARNING: the Meet URLs below are the INTERNAL team invites. Publishing them
+   means anyone joins the call directly and nothing is captured. Replace each
+   `url` with a real registration page as soon as one exists, and mirror this
+   list into lib/webinar.ts so the quiz result page agrees. ------------------ */
+(function () {
+  var WEBINARS = [
+    { iso: '2026-09-09T11:00:00-05:00', label: 'Wednesday, September 9',
+      time: '11:00 AM CT · 60 minutes',
+      url: 'https://www.linkedin.com/company/ai-think-trust/',
+      cta: 'Details on LinkedIn' },
+    { iso: '2026-10-14T11:00:00-05:00', label: 'Wednesday, October 14',
+      time: '11:00 AM CT · 60 minutes', url: 'https://meet.google.com/yhw-wwzg-nro' },
+    { iso: '2026-11-18T11:00:00-06:00', label: 'Wednesday, November 18',
+      time: '11:00 AM CT · 60 minutes', url: '' },
+    { iso: '2026-12-09T11:00:00-06:00', label: 'Wednesday, December 9',
+      time: '11:00 AM CT · 60 minutes', url: 'https://meet.google.com/vff-sobv-nct' }
+  ];
+
+  var now = new Date();
+  var upcoming = WEBINARS.filter(function (w) { return new Date(w.iso) > now; });
+  var next = upcoming[0] || WEBINARS[WEBINARS.length - 1];
+  var rest = upcoming.slice(1);
+
+  var cta = document.getElementById('ait-cta');
+  document.getElementById('ait-next-date').textContent = next.label;
+  document.getElementById('ait-next-time').textContent = next.time;
+  document.getElementById('ait-also').textContent = rest.length
+    ? 'Also ' + rest.map(function (w) {
+        return w.label.replace('Wednesday, ', '');
+      }).join(' and ')
+    : '';
+
+  if (next.url) {
+    cta.href = next.url;
+    cta.removeAttribute('aria-disabled');
+    document.getElementById('ait-cta-label').textContent = next.cta || 'Join the next session';
+  } else {
+    document.getElementById('ait-cta-label').textContent = 'Registration opens shortly';
+  }
+})();
+
+ScrollCraft.mount(document);
+</script>
+</body>
+</html>
