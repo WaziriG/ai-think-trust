@@ -2,22 +2,22 @@ import { WEBINAR } from "@/lib/webinar";
 
 const members = [
   { initials: "PD", name: "Patty Dominguez", role: "Brand Authority & AI Visibility", photo: "/members/patty.jpg" },
-  { initials: "JA", name: "Jackson", role: "Digital Infrastructure", photo: "/members/jackson.jpg" },
+  { initials: "JE", name: "Jackson Edens", role: "Digital Infrastructure", photo: "/members/jackson.jpg" },
   { initials: "SF", name: "Sage", role: "Embedded AI Engineering", photo: "/members/sage.jpg" },
-  { initials: "DA", name: "Daniel", role: "Analytics & Metrics", photo: "/members/daniel.jpg" },
+  { initials: "DM", name: "Daniel Marama", role: "AI Systems Architect", photo: "/members/daniel.jpg" },
   { initials: "JB", name: "Jasmine Brown", role: "Operations & Automation", photo: "/members/jasmine.jpg" },
   { initials: "WG", name: "Waziri Garuba", role: "AI Systems & Strategy", photo: "/members/waziri.jpg" },
 ];
 
-// Registration link lives in lib/webinar.ts (shared with the quiz result page).
-// Paste the July 8 Zoom link there once Jasmine sends it, then redeploy.
+// Schedule lives in lib/webinar.ts and resolves to the next upcoming session.
+// Add a registration URL there; do not point it at an internal Meet invite.
 const ZOOM_REGISTRATION_URL = WEBINAR.registrationUrl;
 
 const agendaItems = [
   { time: "0:00–0:05", label: "Welcome & Housekeeping" },
-  { time: "0:05–0:30", label: "Strategic — AEO & Your Personal Brand" },
-  { time: "0:30–0:42", label: "Operational — Putting AEO Into Your Workflow" },
-  { time: "0:42–0:50", label: "Tactical — AI Visibility Self-Audit + Free GPT" },
+  { time: "0:05–0:30", label: "Strategic" },
+  { time: "0:30–0:42", label: "Operational" },
+  { time: "0:42–0:50", label: "Tactical" },
   { time: "0:50–0:58", label: "Live Q&A & Pain Points" },
   { time: "0:58–1:00", label: "Close & AI Entry Quiz CTA" },
 ];
@@ -97,7 +97,7 @@ export default function Home() {
           letterSpacing: "0.04em",
           marginBottom: 36,
         }}>
-          LIVE WEBINAR — JULY 8, 2026 · AEO & YOUR PERSONAL BRAND
+          {`LIVE SESSION — ${WEBINAR.dateLabel.toUpperCase()}, 2026`}
         </div>
 
         <h1 style={{
@@ -147,7 +147,7 @@ export default function Home() {
               display: "inline-block",
             }}
           >
-            Register for July 8th Webinar
+            {`Register for the ${WEBINAR.dateLabel} Session`}
           </a>
           <a
             href="/quiz"
@@ -271,13 +271,13 @@ export default function Home() {
                 marginBottom: 20,
                 color: "var(--text)",
               }}>
-                AEO & Your Personal Brand
+                {WEBINAR.title}
               </h2>
               <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
                 {[
-                  { label: "Date", value: "Wednesday, July 8, 2026" },
-                  { label: "Time", value: "11:00 AM CT" },
-                  { label: "Platform", value: "Zoom — registration link coming soon" },
+                  { label: "Date", value: `Wednesday, ${WEBINAR.dateLabel}, 2026` },
+                  { label: "Time", value: WEBINAR.time },
+                  { label: "Platform", value: "Google Meet" },
                   { label: "Duration", value: "60 minutes" },
                 ].map((item) => (
                   <div key={item.label} style={{ display: "flex", gap: 12, fontSize: 15 }}>
