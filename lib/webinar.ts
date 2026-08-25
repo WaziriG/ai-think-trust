@@ -13,6 +13,8 @@ export type Session = {
   dateLabel: string;
   time: string;
   title: string;
+  /** One line on what the session covers. Optional. */
+  blurb?: string;
   /** Public registration page. Never point this at an internal Meet invite. */
   registrationUrl: string;
 };
@@ -22,7 +24,9 @@ export const SESSIONS: Session[] = [
     iso: "2026-09-09T11:00:00-05:00",
     dateLabel: "September 9",
     time: "11:00 AM CT",
-    title: "September Session",
+    title: "Watch Your Inbox Sort Itself",
+    blurb:
+      "Waziri builds a working email triage live in n8n, so you can see exactly where your data goes and what moves it.",
     // Announced on LinkedIn until a registration page exists.
     registrationUrl: "https://www.linkedin.com/company/ai-think-trust/",
   },

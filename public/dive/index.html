@@ -175,6 +175,8 @@
     letter-spacing: -0.025em; line-height: 1.1; }
   .ait-next__time { font-family: var(--sc-font-mono); font-size: 12px;
     letter-spacing: 0.08em; color: var(--sc-ink-soft); }
+  .ait-next__topic { display: block; color: var(--sc-ink); font-size: 14px;
+    line-height: 1.45; margin-top: 9px; }
   .ait-next__go { display: flex; align-items: center; justify-content: space-between;
     gap: 12px; margin-top: 12px; padding-top: 12px;
     border-top: 1px solid rgba(229,57,53,0.35);
@@ -407,6 +409,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="ait-next__eyebrow">Next session</span>
           <span class="ait-next__date" id="ait-next-date">&nbsp;</span>
           <span class="ait-next__time" id="ait-next-time">&nbsp;</span>
+          <span class="ait-next__topic" id="ait-next-topic"></span>
           <span class="ait-next__go"><span id="ait-cta-label">Join the next session</span><i>&rarr;</i></span>
         </a>
         <p class="ait-also" id="ait-also">&nbsp;</p>
@@ -609,6 +612,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var WEBINARS = [
     { iso: '2026-09-09T11:00:00-05:00', label: 'Wednesday, September 9',
       time: '11:00 AM CT · 60 minutes',
+      topic: 'Watch Your Inbox Sort Itself. A working email triage built live in n8n, so you can see where your data goes and what moves it.',
       url: 'https://www.linkedin.com/company/ai-think-trust/',
       cta: 'Details on LinkedIn' },
     { iso: '2026-10-14T11:00:00-05:00', label: 'Wednesday, October 14',
@@ -627,6 +631,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var cta = document.getElementById('ait-cta');
   document.getElementById('ait-next-date').textContent = next.label;
   document.getElementById('ait-next-time').textContent = next.time;
+  document.getElementById('ait-next-topic').textContent = next.topic || '';
   document.getElementById('ait-also').textContent = rest.length
     ? 'Also ' + rest.map(function (w) {
         return w.label.replace('Wednesday, ', '');
