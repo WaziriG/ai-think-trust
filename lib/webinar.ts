@@ -1,7 +1,8 @@
 // Single source of truth for the AI Think Trust session schedule.
 //
-// Confirmed Aug 24 2026 against the calendar invites: Sept 9 is Patty's,
-// Oct 14 / Nov 18 / Dec 9 are Jasmine's. All run 11:00a-12:00p CT.
+// Confirmed Aug 24 2026 against the calendar invites. All run 11:00a-12:00p CT.
+// Note: the calendar organizer is whoever created the invite (Patty for Sept 9,
+// Jasmine for the rest) and is NOT the presenter. Waz presents Sept 9.
 //
 // WEBINAR is derived, not typed in. It always resolves to the next upcoming
 // session, so the site cannot go stale the way the hardcoded July 8 entry did.
