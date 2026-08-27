@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 
 const GTM_ID = "GTM-PTDL6FW6";
+const GA_MEASUREMENT_ID = "G-V7T43SS9QX";
 
 export const metadata: Metadata = {
   title: "AI Think Trust",
@@ -49,6 +51,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
         />
         {/* End Google Tag Manager (noscript) */}
         {children}
+
+        {/* Google tag (gtag.js) — GA4 */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+        </Script>
       </body>
     </html>
   );
