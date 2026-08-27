@@ -287,6 +287,15 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PTDL6FW6');</script>
+<!-- Google tag (gtag.js) - GA4. Same reason as the container above: this
+     page is static, so app/layout.tsx never runs for it. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V7T43SS9QX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-V7T43SS9QX');
+</script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTDL6FW6"
