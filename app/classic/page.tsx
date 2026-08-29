@@ -3,7 +3,7 @@ import { WEBINAR } from "@/lib/webinar";
 const members = [
   { initials: "PD", name: "Patty Dominguez", role: "Brand Authority & AI Visibility", photo: "/members/patty.jpg" },
   { initials: "JE", name: "Jackson Edens", role: "Digital Infrastructure", photo: "/members/jackson.jpg" },
-  { initials: "SF", name: "Sage", role: "Embedded AI Engineering", photo: "/members/sage.jpg" },
+  { initials: "SF", name: "Sage Faraday", role: "Embedded AI Engineering", photo: "/members/sage.jpg" },
   { initials: "DM", name: "Daniel Marama", role: "AI Systems Architect", photo: "/members/daniel.jpg" },
   { initials: "JB", name: "Jasmine Brown", role: "Operations & Automation", photo: "/members/jasmine.jpg" },
   { initials: "WG", name: "Waziri Garuba", role: "AI Systems & Strategy", photo: "/members/waziri.jpg" },

@@ -93,35 +93,35 @@ const XL = -9999;
 const Q4_RANKS: Record<string, Record<string, number>> = {
   "Save hours on repetitive work (automation)": {
     "Daniel Marama": 6, "Waziri Garuba": 5, "Jasmine Brown": 4,
-    "Patty Dominguez": 3, "Jackson Edens": 2, "Sage": 1,
+    "Patty Dominguez": 3, "Jackson Edens": 2, "Sage Faraday": 1,
   },
   "Get better at content / marketing with AI": {
     "Patty Dominguez": 6, "Daniel Marama": 5, "Jackson Edens": 4,
-    "Jasmine Brown": 3, "Waziri Garuba": 2, "Sage": 1,
+    "Jasmine Brown": 3, "Waziri Garuba": 2, "Sage Faraday": 1,
   },
   "Actually understand what AI can do for my business": {
     "Jackson Edens": 6, "Jasmine Brown": 5, "Patty Dominguez": 4,
-    "Waziri Garuba": 3, "Daniel Marama": 2, "Sage": 1,
+    "Waziri Garuba": 3, "Daniel Marama": 2, "Sage Faraday": 1,
   },
   "Build something custom (GPT, agent, workflow)": {
-    "Sage": 6, "Daniel Marama": 5, "Waziri Garuba": 4,
+    "Sage Faraday": 6, "Daniel Marama": 5, "Waziri Garuba": 4,
     "Patty Dominguez": 3, "Jasmine Brown": 2, "Jackson Edens": 1,
   },
   "Train my team so I'm not the bottleneck": {
     "Waziri Garuba": 6, "Patty Dominguez": 5, "Jasmine Brown": 4,
-    "Jackson Edens": 3, "Daniel Marama": 2, "Sage": 1,
+    "Jackson Edens": 3, "Daniel Marama": 2, "Sage Faraday": 1,
   },
 };
 
 function scoreMembers(a: Answers): string {
   const s: Record<string, number> = {
-    "Patty Dominguez": 0, "Jackson Edens": 0, "Sage": 0,
+    "Patty Dominguez": 0, "Jackson Edens": 0, "Sage Faraday": 0,
     "Daniel Marama": 0, "Jasmine Brown": 0, "Waziri Garuba": 0,
   };
 
   // ── Q1: Business size / stage ──────────────────────────────────────────────
   if (a.q1 === "Solopreneur / freelancer" || a.q1 === "Still figuring it out") {
-    s["Sage"] += XL;           // Sage (Rosenblatt) doesn't serve solos/pre-revenue
+    s["Sage Faraday"] += XL;           // Sage (Rosenblatt) doesn't serve solos/pre-revenue
     s["Daniel Marama"] -= 15;  // Daniel's ICP is $5M–$50M companies
   }
   if (a.q1 === "Still figuring it out") s["Jackson Edens"] += 20;
@@ -131,7 +131,7 @@ function scoreMembers(a: Answers): string {
     s["Jasmine Brown"] += XL;   // Jasmine doesn't serve growing companies
     s["Patty Dominguez"] += XL; // Patty doesn't serve growing companies
     s["Daniel Marama"] += 20;
-    s["Sage"] += 20;
+    s["Sage Faraday"] += 20;
     s["Waziri Garuba"] += 15;
   }
 
@@ -142,7 +142,7 @@ function scoreMembers(a: Answers): string {
       s["Jackson Edens"] += 15;
     } else {
       // 2+ people, zero AI experience → Sage/Waziri/Daniel are wrong fits; Patty/Jasmine handle novices
-      s["Sage"] += XL;
+      s["Sage Faraday"] += XL;
       s["Waziri Garuba"] -= 15;
       s["Daniel Marama"] -= 15;
       s["Patty Dominguez"] += 15;
@@ -150,15 +150,15 @@ function scoreMembers(a: Answers): string {
     }
   }
   if (a.q2 === "Dabbling (ChatGPT here and there)") {
-    s["Sage"] += 8; s["Waziri Garuba"] += 8; s["Daniel Marama"] += 8;
+    s["Sage Faraday"] += 8; s["Waziri Garuba"] += 8; s["Daniel Marama"] += 8;
   }
   if (a.q2 === "Using it weekly for real work") {
     s["Waziri Garuba"] += 15; s["Daniel Marama"] += 15;
-    s["Sage"] += 10; s["Jasmine Brown"] += 8;
+    s["Sage Faraday"] += 10; s["Jasmine Brown"] += 8;
   }
   if (a.q2 === "Building custom workflows / GPTs") {
     s["Waziri Garuba"] += 20; s["Daniel Marama"] += 20;
-    s["Sage"] += 15; s["Jasmine Brown"] += 8;
+    s["Sage Faraday"] += 15; s["Jasmine Brown"] += 8;
   }
 
   // ── Q3: Open text — keyword match against member profiles ─────────────────
@@ -167,11 +167,11 @@ function scoreMembers(a: Answers): string {
     [["team", "train", "employ", "staff", "people", "hire"],             ["Jackson Edens", "Waziri Garuba"]],
     [["automat", "workflow", "repetitive", "manual", "process", "task"], ["Jasmine Brown", "Daniel Marama"]],
     [["market", "content", "brand", "visib", "authority", "found"],      ["Patty Dominguez"]],
-    [["build", "custom", "agent", "gpt", "develop", "engineer", "code"], ["Waziri Garuba", "Sage", "Daniel Marama"]],
+    [["build", "custom", "agent", "gpt", "develop", "engineer", "code"], ["Waziri Garuba", "Sage Faraday", "Daniel Marama"]],
     [["data", "metric", "analytic", "roi", "measure", "track"],          ["Daniel Marama"]],
-    [["scale", "headcount", "grow", "infrastructure", "equity"],         ["Daniel Marama", "Sage"]],
+    [["scale", "headcount", "grow", "infrastructure", "equity"],         ["Daniel Marama", "Sage Faraday"]],
     [["understand", "learn", "confused", "not sure", "overwhelm"],       ["Jackson Edens", "Patty Dominguez", "Jasmine Brown"]],
-    [["startup", "fund", "investor", "pitch", "launch"],                 ["Sage"]],
+    [["startup", "fund", "investor", "pitch", "launch"],                 ["Sage Faraday"]],
     [["email", "social", "post", "copy", "messaging", "linkedin"],       ["Patty Dominguez"]],
     [["time", "save", "hours", "busy", "capacity", "bandwidth"],         ["Jasmine Brown", "Daniel Marama"]],
   ];
@@ -235,7 +235,7 @@ const MEMBERS: Record<
     photo: "/members/jackson.jpg",
     email: "jackson@essaiconsulting.com",
   },
-  Sage: {
+  "Sage Faraday": {
     role: "Embedded AI Engineering",
     initials: "SF",
     description:
