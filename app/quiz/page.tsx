@@ -240,7 +240,7 @@ const MEMBERS: Record<
     initials: "SF",
     description:
       "Sage brings the engineering firepower of Rosenblatt — elite AI engineers embedded directly into your business. Production-ready AI in weeks, not months. The right match when your company is ready to build AI-first and needs a technical team, not a consultant.",
-    photo: null,
+    photo: "/members/sage.jpg",
     email: "sagesingularity@gmail.com",
   },
   "Daniel Marama": {
