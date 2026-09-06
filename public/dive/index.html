@@ -105,7 +105,7 @@
     color: var(--sc-ink);
   }
   .ait-dirs em { display: block; font-style: normal; font-family: var(--sc-font-mono);
-    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--sc-ink-soft); margin-top: 5px; }
 
   /* The left half of this leg is empty water while the six lines sit right.
@@ -157,11 +157,11 @@
     border-radius: 3px; }
   .ait-all h3 { margin: 12px 0 0; font-size: clamp(15px, 1.15vw, 18px); font-weight: 700;
     letter-spacing: -0.015em; line-height: 1.2; color: var(--sc-ink); }
-  .ait-all__role { font-family: var(--sc-font-mono); font-size: 10px; letter-spacing: 0.1em;
+  .ait-all__role { font-family: var(--sc-font-mono); font-size: 12px; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--sc-ink-soft); margin: 5px 0 0; line-height: 1.5; }
   .ait-all__bio { color: var(--sc-ink-soft); font-size: 12.5px; line-height: 1.5;
     margin: 8px 0 0; }
-  .ait-all__start { display: none; font-family: var(--sc-font-mono); font-size: 10px;
+  .ait-all__start { display: none; font-family: var(--sc-font-mono); font-size: 12px;
     letter-spacing: 0.14em; text-transform: uppercase; color: var(--sc-accent); margin: 7px 0 0; }
   .ait-all li[data-start="1"] .ait-all__start { display: block; }
 
@@ -185,7 +185,7 @@
   .ait-next:hover { transform: translateY(-2px);
     background: linear-gradient(180deg, rgba(229,57,53,0.26), rgba(229,57,53,0.10)); }
   .ait-next[aria-disabled="true"] { pointer-events: none; }
-  .ait-next__eyebrow { font-family: var(--sc-font-mono); font-size: 11px;
+  .ait-next__eyebrow { font-family: var(--sc-font-mono); font-size: 12px;
     letter-spacing: 0.16em; text-transform: uppercase; color: var(--sc-accent); }
   .ait-next__date { font-size: clamp(22px, 2.5vw, 32px); font-weight: 700;
     letter-spacing: -0.025em; line-height: 1.1; }
@@ -199,7 +199,7 @@
     font-family: var(--sc-font-mono); font-size: 12px; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--sc-ink); }
   .ait-next__go i { font-style: normal; color: var(--sc-accent); }
-  .ait-also { font-family: var(--sc-font-mono); font-size: 11px; letter-spacing: 0.08em;
+  .ait-also { font-family: var(--sc-font-mono); font-size: 12px; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--sc-ink-soft); margin: 0 0 14px; }
 
   .ait-opt { display: block; text-decoration: none; padding: 11px 0 11px 14px;
@@ -223,7 +223,7 @@
   .ait-cta:hover { transform: translateY(-2px); }
   .ait-cta[aria-disabled="true"] { background: transparent; color: var(--sc-ink-soft);
     border: 1px solid var(--ait-line); pointer-events: none; }
-  .ait-close__meta { font-family: var(--sc-font-mono); font-size: 11px; letter-spacing: 0.12em;
+  .ait-close__meta { font-family: var(--sc-font-mono); font-size: 12px; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--sc-ink-soft); margin: 10px 0 0; }
   /* the two social links measured 64x13 and 56x13, under the 44px tap target */
   .ait-close__meta a { color: var(--sc-ink-soft); display: inline-flex; align-items: center;
@@ -298,6 +298,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main" style="position:absolute;left:1rem;top:-4rem;z-index:1000;padding:1rem 1.25rem;background:#c62828;color:#fff;font:600 .75rem/1.25 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none" onfocus="this.style.top='1rem'" onblur="this.style.top='-4rem'">Skip to content</a>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTDL6FW6"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
@@ -316,6 +317,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <span></span>
 </aside>
+<main id="main">
 
 <div data-sc-mode="worldflight" data-sc-seam="0.12">
 
@@ -462,7 +464,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div data-sc-spacer aria-hidden="true"></div>
 </div>
-
+</main>
 <script src="/dive/scrollcraft.js"></script>
 <script>
 /* ============================================================================

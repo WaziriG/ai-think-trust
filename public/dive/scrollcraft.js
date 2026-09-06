@@ -743,7 +743,7 @@
         // over a moving world and starts reading as a second page scrolling at a
         // different speed, which is the exact cheapness this mode replaces.
         var wp = clamp01((pr - q.from) / win);
-        q.el.style.opacity = vis.toFixed(3);
+        q.el.style.opacity = vis.toFixed(3); q.el.toggleAttribute('inert', vis < 0.05);
         q.el.style.transform = reduce ? 'none'
           : 'translate3d(0,' + ((0.5 - wp) * 4).toFixed(2) + 'vh,0)';
         var on = vis > 0.5;
@@ -838,7 +838,7 @@
           if (a.parked !== true) {
             for (var z = 0; z < a.cues.length; z++) {
               var pq = a.cues[z];
-              pq.el.style.opacity = '0';
+              pq.el.style.opacity = '0'; pq.el.setAttribute('inert', '');
               pq.el.style.pointerEvents = 'none';
               pq.state = 0;
               if (pq.units) for (var zu = 0; zu < pq.units.length; zu++) pq.units[zu].style.opacity = '0';
@@ -879,9 +879,9 @@
               q.units[u].style.transform = reduce ? 'none'
                 : 'translate3d(0,' + ((1 - uv) * 100).toFixed(2) + '%,0)';
             }
-            q.el.style.opacity = '1';
+            q.el.style.opacity = '1'; q.el.removeAttribute('inert');
           } else {
-            q.el.style.opacity = vis.toFixed(3);
+            q.el.style.opacity = vis.toFixed(3); q.el.toggleAttribute('inert', vis < 0.05);
             q.el.style.transform = reduce ? 'none'
               : 'translate3d(0,' + ((1 - vis) * 2.4 * q.rise).toFixed(2) + 'vh,0)';
           }

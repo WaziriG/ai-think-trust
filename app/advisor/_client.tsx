@@ -303,14 +303,14 @@ function AdvisorInner() {
           alignItems: "center",
           justifyContent: "space-between",
         }}>
-          <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+          <Link href="/" style={{ display: "flex", alignItems: "center", minHeight: 44 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo-reverse.svg" alt="AI Think Trust" style={{ height: 34 }} />
           </Link>
           <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
-            <Link href="/#webinar" style={{ color: C.muted, fontSize: 14, textDecoration: "none" }}>Webinar</Link>
-            <Link href="/#members" style={{ color: C.muted, fontSize: 14, textDecoration: "none" }}>Members</Link>
-            <Link href="/quiz" style={{ color: C.muted, fontSize: 14, textDecoration: "none" }}>Quiz</Link>
+            <Link href="/#webinar" style={{ color: C.muted, fontSize: 14, textDecoration: "none", display: "inline-block", padding: "12px 0" }}>Webinar</Link>
+            <Link href="/#members" style={{ color: C.muted, fontSize: 14, textDecoration: "none", display: "inline-block", padding: "12px 0" }}>Members</Link>
+            <Link href="/quiz" style={{ color: C.muted, fontSize: 14, textDecoration: "none", display: "inline-block", padding: "12px 0" }}>Quiz</Link>
             <a
               href="https://www.linkedin.com/company/ai-think-trust/"
               target="_blank"
@@ -319,7 +319,7 @@ function AdvisorInner() {
                 background: C.accentDim,
                 color: C.accent,
                 border: `1px solid ${C.accent}`,
-                padding: "6px 16px",
+                padding: "12px 16px",
                 borderRadius: 6,
                 fontSize: 13,
                 fontWeight: 600,

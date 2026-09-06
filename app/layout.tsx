@@ -50,7 +50,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
           }}
         />
         {/* End Google Tag Manager (noscript) */}
-        {children}
+        <a href="#main" className="skip-link">Skip to content</a>
+        <main id="main" tabIndex={-1}>{children}</main>
 
         {/* Google tag (gtag.js) — GA4 */}
         <Script

@@ -341,7 +341,7 @@ function RadioOption({
         borderRadius: 10,
         padding: "14px 20px",
         color: selected ? C.text : C.muted,
-        fontSize: 15,
+        fontSize: 16,
         fontWeight: selected ? 600 : 400,
         textAlign: "left",
         cursor: "pointer",
@@ -469,7 +469,7 @@ export default function QuizPage() {
           alignItems: "center",
         }}
       >
-        <Link href="/">
+        <Link href="/" style={{ minHeight: 44, display: "flex", alignItems: "center" }}>
           <img src="/logo-reverse.svg" alt="AI Think Trust" style={{ height: 32 }} />
         </Link>
       </nav>
@@ -536,7 +536,7 @@ export default function QuizPage() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div>
-                <label
+                <label htmlFor="quiz-name"
                   style={{
                     display: "block",
                     fontSize: 13,
@@ -548,6 +548,8 @@ export default function QuizPage() {
                   Your name
                 </label>
                 <input
+                  id="quiz-name"
+                  autoComplete="given-name"
                   type="text"
                   value={answers.name}
                   onChange={(e) => update("name", e.target.value)}
@@ -560,14 +562,14 @@ export default function QuizPage() {
                     borderRadius: 8,
                     padding: "12px 16px",
                     color: C.text,
-                    fontSize: 15,
+                    fontSize: 16,
                     outline: "none",
                     boxSizing: "border-box",
                   }}
                 />
               </div>
               <div>
-                <label
+                <label htmlFor="quiz-email"
                   style={{
                     display: "block",
                     fontSize: 13,
@@ -579,6 +581,9 @@ export default function QuizPage() {
                   Email address
                 </label>
                 <input
+                  id="quiz-email"
+                  autoComplete="email"
+                  inputMode="email"
                   type="email"
                   value={answers.email}
                   onChange={(e) => update("email", e.target.value)}
@@ -591,7 +596,7 @@ export default function QuizPage() {
                     borderRadius: 8,
                     padding: "12px 16px",
                     color: C.text,
-                    fontSize: 15,
+                    fontSize: 16,
                     outline: "none",
                     boxSizing: "border-box",
                   }}
@@ -608,7 +613,7 @@ export default function QuizPage() {
                   borderRadius: 8,
                   padding: "14px",
                   fontWeight: 700,
-                  fontSize: 15,
+                  fontSize: 16,
                   cursor: canAdvance() ? "pointer" : "not-allowed",
                   transition: "background 0.2s",
                 }}
@@ -674,7 +679,7 @@ export default function QuizPage() {
                     borderRadius: 10,
                     padding: "14px 16px",
                     color: C.text,
-                    fontSize: 15,
+                    fontSize: 16,
                     lineHeight: 1.6,
                     resize: "vertical",
                     outline: "none",
@@ -715,7 +720,7 @@ export default function QuizPage() {
                     padding: "12px 32px",
                     color: "#fff",
                     fontWeight: 700,
-                    fontSize: 15,
+                    fontSize: 16,
                     cursor: canAdvance() ? "pointer" : "not-allowed",
                     transition: "background 0.2s",
                   }}
@@ -836,7 +841,7 @@ export default function QuizPage() {
                   borderRadius: 8,
                   padding: "14px",
                   fontWeight: 700,
-                  fontSize: 15,
+                  fontSize: 16,
                   textDecoration: "none",
                   textAlign: "center",
                   display: "block",
@@ -856,7 +861,7 @@ export default function QuizPage() {
                   borderRadius: 8,
                   padding: "14px",
                   fontWeight: 600,
-                  fontSize: 15,
+                  fontSize: 16,
                   textDecoration: "none",
                   textAlign: "center",
                   display: "block",

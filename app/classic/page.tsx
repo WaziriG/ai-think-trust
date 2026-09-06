@@ -46,14 +46,14 @@ export default function Home() {
         }}>
           <img src="/logo-reverse.svg" alt="AI Think Trust" style={{ height: 36 }} />
           <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
-            <a href="#webinar" style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}>Webinar</a>
-            <a href="#members" style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}>Members</a>
-            <a href="/advisor" style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}>AI Advisor</a>
+            <a href="#webinar" style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none", display: "inline-block", padding: "12px 0" }}>Webinar</a>
+            <a href="#members" style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none", display: "inline-block", padding: "12px 0" }}>Members</a>
+            <a href="/advisor" style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none", display: "inline-block", padding: "12px 0" }}>AI Advisor</a>
             <a
               href="https://www.youtube.com/@aithinktrust"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}
+              style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none", display: "inline-block", padding: "12px 0" }}
             >
               YouTube
             </a>
@@ -63,9 +63,9 @@ export default function Home() {
               rel="noopener noreferrer"
               style={{
                 background: "var(--accent-dim)",
-                color: "var(--accent)",
+                color: "var(--accent-text)",
                 border: "1px solid var(--accent)",
-                padding: "6px 16px",
+                padding: "12px 16px",
                 borderRadius: 6,
                 fontSize: 13,
                 fontWeight: 600,
@@ -89,7 +89,7 @@ export default function Home() {
           display: "inline-block",
           background: "var(--accent-dim)",
           border: "1px solid var(--accent)",
-          color: "var(--accent)",
+          color: "var(--accent-text)",
           padding: "6px 18px",
           borderRadius: 100,
           fontSize: 13,
@@ -115,7 +115,7 @@ export default function Home() {
           fontWeight: 800,
           lineHeight: 1.05,
           letterSpacing: "-0.03em",
-          color: "var(--accent)",
+          color: "var(--accent-text)",
           marginBottom: 28,
         }}>
           the Rabbit Hole.
@@ -137,7 +137,7 @@ export default function Home() {
           <a
             href="#webinar"
             style={{
-              background: "var(--accent)",
+              background: "var(--accent-fill)",
               color: "#ffffff",
               padding: "14px 32px",
               borderRadius: 8,
@@ -179,7 +179,7 @@ export default function Home() {
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.12em",
-            color: "var(--accent)",
+            color: "var(--accent-text)",
             textTransform: "uppercase",
             marginBottom: 20,
             textAlign: "center",
@@ -257,7 +257,7 @@ export default function Home() {
                 fontSize: 12,
                 fontWeight: 700,
                 letterSpacing: "0.12em",
-                color: "var(--accent)",
+                color: "var(--accent-text)",
                 textTransform: "uppercase",
                 marginBottom: 20,
               }}>
@@ -297,7 +297,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    background: "var(--accent)",
+                    background: "var(--accent-fill)",
                     color: "#ffffff",
                     padding: "13px 28px",
                     borderRadius: 8,
@@ -313,7 +313,7 @@ export default function Home() {
                 <span
                   style={{
                     background: "var(--accent-dim)",
-                    color: "var(--accent)",
+                    color: "var(--accent-text)",
                     border: "1px solid var(--accent)",
                     padding: "13px 28px",
                     borderRadius: 8,
@@ -358,7 +358,7 @@ export default function Home() {
                     <span style={{
                       fontSize: 12,
                       fontWeight: 600,
-                      color: "var(--accent)",
+                      color: "var(--accent-text)",
                       minWidth: 80,
                     }}>
                       {item.time}
@@ -382,7 +382,7 @@ export default function Home() {
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.12em",
-            color: "var(--accent)",
+            color: "var(--accent-text)",
             textTransform: "uppercase",
             marginBottom: 20,
             textAlign: "center",
@@ -451,7 +451,7 @@ export default function Home() {
                     margin: "0 auto 16px",
                     fontSize: 17,
                     fontWeight: 700,
-                    color: "var(--accent)",
+                    color: "var(--accent-text)",
                     letterSpacing: "0.04em",
                   }}>
                     {m.initials}
@@ -477,7 +477,7 @@ export default function Home() {
             display: "inline-block",
             background: "var(--accent-dim)",
             border: "1px solid var(--accent)",
-            color: "var(--accent)",
+            color: "var(--accent-text)",
             padding: "6px 18px",
             borderRadius: 100,
             fontSize: 12,
@@ -510,7 +510,7 @@ export default function Home() {
           <a
             href="/quiz"
             style={{
-              background: "var(--accent)",
+              background: "var(--accent-fill)",
               color: "#ffffff",
               padding: "15px 36px",
               borderRadius: 8,
@@ -542,7 +542,7 @@ export default function Home() {
               href="https://www.youtube.com/@aithinktrust"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}
+              style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none", display: "inline-block", padding: "12px 0" }}
             >
               YouTube
             </a>
@@ -550,7 +550,7 @@ export default function Home() {
               href="https://www.linkedin.com/company/ai-think-trust/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none" }}
+              style={{ color: "var(--muted)", fontSize: 14, textDecoration: "none", display: "inline-block", padding: "12px 0" }}
             >
               LinkedIn
             </a>
