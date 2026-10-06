@@ -92,31 +92,31 @@ const XL = -9999;
 // Q4: Priority rankings per answer (1 = best fit, 6 = weakest)
 const Q4_RANKS: Record<string, Record<string, number>> = {
   "Save hours on repetitive work (automation)": {
-    "Daniel Marama": 6, "Waziri Garuba": 5, "Jasmine Brown": 4,
-    "Patty Dominguez": 3, "Jackson Edens": 2, "Sage Faraday": 1,
+    "Daniel Marama": 6, "Waziri Garuba": 5,
+    "Jackson Edens": 2, "Sage Faraday": 1,
   },
   "Get better at content / marketing with AI": {
-    "Patty Dominguez": 6, "Daniel Marama": 5, "Jackson Edens": 4,
-    "Jasmine Brown": 3, "Waziri Garuba": 2, "Sage Faraday": 1,
+    "Daniel Marama": 5, "Jackson Edens": 4,
+    "Waziri Garuba": 2, "Sage Faraday": 1,
   },
   "Actually understand what AI can do for my business": {
-    "Jackson Edens": 6, "Jasmine Brown": 5, "Patty Dominguez": 4,
+    "Jackson Edens": 6,
     "Waziri Garuba": 3, "Daniel Marama": 2, "Sage Faraday": 1,
   },
   "Build something custom (GPT, agent, workflow)": {
     "Sage Faraday": 6, "Daniel Marama": 5, "Waziri Garuba": 4,
-    "Patty Dominguez": 3, "Jasmine Brown": 2, "Jackson Edens": 1,
+    "Jackson Edens": 1,
   },
   "Train my team so I'm not the bottleneck": {
-    "Waziri Garuba": 6, "Patty Dominguez": 5, "Jasmine Brown": 4,
+    "Waziri Garuba": 6,
     "Jackson Edens": 3, "Daniel Marama": 2, "Sage Faraday": 1,
   },
 };
 
 function scoreMembers(a: Answers): string {
   const s: Record<string, number> = {
-    "Patty Dominguez": 0, "Jackson Edens": 0, "Sage Faraday": 0,
-    "Daniel Marama": 0, "Jasmine Brown": 0, "Waziri Garuba": 0,
+    "Jackson Edens": 0, "Sage Faraday": 0,
+    "Daniel Marama": 0, "Waziri Garuba": 0,
   };
 
   // ── Q1: Business size / stage ──────────────────────────────────────────────
@@ -128,8 +128,6 @@ function scoreMembers(a: Answers): string {
   if (a.q1 === "Solopreneur / freelancer") s["Jackson Edens"] += 8;
   if (a.q1 === "Growing company (10+)") {
     s["Jackson Edens"] += XL;   // Jackson doesn't serve growing companies
-    s["Jasmine Brown"] += XL;   // Jasmine doesn't serve growing companies
-    s["Patty Dominguez"] += XL; // Patty doesn't serve growing companies
     s["Daniel Marama"] += 20;
     s["Sage Faraday"] += 20;
     s["Waziri Garuba"] += 15;
@@ -138,15 +136,13 @@ function scoreMembers(a: Answers): string {
   // ── Q2: AI experience / maturity ──────────────────────────────────────────
   if (a.q2 === "Haven't touched it") {
     if (a.q1 === "Solopreneur / freelancer" || a.q1 === "Still figuring it out") {
-      s["Jasmine Brown"] += 15;
       s["Jackson Edens"] += 15;
     } else {
-      // 2+ people, zero AI experience → Sage/Waziri/Daniel are wrong fits; Patty/Jasmine handle novices
+      // 2+ people, zero AI experience → Sage/Waziri/Daniel are wrong fits; Jackson handles novices
       s["Sage Faraday"] += XL;
       s["Waziri Garuba"] -= 15;
       s["Daniel Marama"] -= 15;
-      s["Patty Dominguez"] += 15;
-      s["Jasmine Brown"] += 15;
+      s["Jackson Edens"] += 15;
     }
   }
   if (a.q2 === "Dabbling (ChatGPT here and there)") {
@@ -154,26 +150,24 @@ function scoreMembers(a: Answers): string {
   }
   if (a.q2 === "Using it weekly for real work") {
     s["Waziri Garuba"] += 15; s["Daniel Marama"] += 15;
-    s["Sage Faraday"] += 10; s["Jasmine Brown"] += 8;
+    s["Sage Faraday"] += 10;
   }
   if (a.q2 === "Building custom workflows / GPTs") {
     s["Waziri Garuba"] += 20; s["Daniel Marama"] += 20;
-    s["Sage Faraday"] += 15; s["Jasmine Brown"] += 8;
+    s["Sage Faraday"] += 15;
   }
 
   // ── Q3: Open text — keyword match against member profiles ─────────────────
   const q3 = a.q3.toLowerCase();
   const clusters: Array<[string[], string[]]> = [
     [["team", "train", "employ", "staff", "people", "hire"],             ["Jackson Edens", "Waziri Garuba"]],
-    [["automat", "workflow", "repetitive", "manual", "process", "task"], ["Jasmine Brown", "Daniel Marama"]],
-    [["market", "content", "brand", "visib", "authority", "found"],      ["Patty Dominguez"]],
+    [["automat", "workflow", "repetitive", "manual", "process", "task"], ["Waziri Garuba", "Daniel Marama"]],
     [["build", "custom", "agent", "gpt", "develop", "engineer", "code"], ["Waziri Garuba", "Sage Faraday", "Daniel Marama"]],
     [["data", "metric", "analytic", "roi", "measure", "track"],          ["Daniel Marama"]],
     [["scale", "headcount", "grow", "infrastructure", "equity"],         ["Daniel Marama", "Sage Faraday"]],
-    [["understand", "learn", "confused", "not sure", "overwhelm"],       ["Jackson Edens", "Patty Dominguez", "Jasmine Brown"]],
+    [["understand", "learn", "confused", "not sure", "overwhelm"],       ["Jackson Edens"]],
     [["startup", "fund", "investor", "pitch", "launch"],                 ["Sage Faraday"]],
-    [["email", "social", "post", "copy", "messaging", "linkedin"],       ["Patty Dominguez"]],
-    [["time", "save", "hours", "busy", "capacity", "bandwidth"],         ["Jasmine Brown", "Daniel Marama"]],
+    [["time", "save", "hours", "busy", "capacity", "bandwidth"],         ["Waziri Garuba", "Daniel Marama"]],
   ];
   for (const [terms, members] of clusters) {
     for (const term of terms) {
@@ -194,14 +188,14 @@ function scoreMembers(a: Answers): string {
   // "30 days" boosts members who deliver hands-on implementation fast
   // "exploring" boosts educators/strategists who are right for early stage
   if (a.q5 === "In the next 30 days — I need to move") {
-    s["Waziri Garuba"] += 10; s["Jasmine Brown"] += 10; s["Daniel Marama"] += 8;
+    s["Waziri Garuba"] += 10; s["Daniel Marama"] += 8;
   }
   if (a.q5 === "Just exploring for now") {
-    s["Jackson Edens"] += 8; s["Patty Dominguez"] += 8;
+    s["Jackson Edens"] += 8;
   }
 
   // Pick highest scorer
-  let best = "Patty Dominguez";
+  let best = "Jackson Edens";
   for (const [m, score] of Object.entries(s)) {
     if (score > s[best]) best = m;
   }
@@ -219,14 +213,6 @@ const MEMBERS: Record<
   string,
   { role: string; initials: string; description: string; photo: string | null; email: string }
 > = {
-  "Patty Dominguez": {
-    role: "Brand Authority & AI Visibility",
-    initials: "PD",
-    description:
-      "Patty helps service businesses close the gap between the authority they've earned and the authority buyers and AI can actually see. If your work is strong but the market isn't reflecting it — that's an authority interpretation problem, and it's exactly what she fixes.",
-    photo: "/members/patty.jpg",
-    email: "hello@moreleverage.io",
-  },
   "Jackson Edens": {
     role: "Digital Infrastructure",
     initials: "JE",
@@ -250,14 +236,6 @@ const MEMBERS: Record<
       "Daniel helps established companies ($5M–$50M) eliminate the Hiring Tax — the 10–15% of revenue lost to manual coordination. He architects AI Operating Systems that decouple revenue growth from headcount and build exit-ready infrastructure.",
     photo: "/members/daniel.jpg",
     email: "daniel@maramamarketing.com",
-  },
-  "Jasmine Brown": {
-    role: "Operations & Automation",
-    initials: "JB",
-    description:
-      "Jasmine designs, implements, and optimizes the systems and workflows that power organizations — reducing admin overhead and building scalable operational foundations. The right match when your business has the revenue but not the backend to support it.",
-    photo: "/members/jasmine.jpg",
-    email: "jasmine@righthandsupport.com",
   },
   "Waziri Garuba": {
     role: "AI Systems & Strategy",

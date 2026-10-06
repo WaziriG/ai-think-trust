@@ -8,12 +8,10 @@ import { trackEvent } from "@/lib/gtm";
 const AGENT_ID = "agent_1901k1trym39fhhvkr3ecs47nyj4";
 
 const MEMBER_ORBS = [
-  { photo: "/members/patty.jpg",   name: "Patty",   cls: "att-orb-1" },
-  { photo: "/members/jackson.jpg", name: "Jackson", cls: "att-orb-2" },
-  { photo: "/members/sage.jpg",    name: "Sage",    cls: "att-orb-3" },
-  { photo: "/members/daniel.jpg",  name: "Daniel",  cls: "att-orb-4" },
-  { photo: "/members/jasmine.jpg", name: "Jasmine", cls: "att-orb-5" },
-  { photo: "/members/waziri.jpg",  name: "Waz",     cls: "att-orb-6" },
+  { photo: "/members/jackson.jpg", name: "Jackson", cls: "att-orb-1" },
+  { photo: "/members/sage.jpg",    name: "Sage",    cls: "att-orb-2" },
+  { photo: "/members/daniel.jpg",  name: "Daniel",  cls: "att-orb-3" },
+  { photo: "/members/waziri.jpg",  name: "Waz",     cls: "att-orb-4" },
 ];
 
 const C = {
@@ -524,15 +522,13 @@ export default function AdvisorClient() {
           display: block;
         }
 
-        /* ── Desktop: 3-per-side columns ── */
+        /* ── Desktop: 2-per-side columns ── */
         @media (min-width: 900px) {
           .att-orb { width: 140px; height: 140px; }
-          .att-orb-1 { left: -34px; top: 10vh;  animation-delay: 0.1s; }
-          .att-orb-2 { left: -34px; top: 32vh;  animation-delay: 0.5s; }
-          .att-orb-3 { left: -34px; top: 54vh;  animation-delay: 0.9s; }
-          .att-orb-4 { right: -34px; top: 20vh; animation-delay: 0.3s; }
-          .att-orb-5 { right: -34px; top: 42vh; animation-delay: 0.7s; }
-          .att-orb-6 { right: -34px; top: 63vh; animation-delay: 1.1s; }
+          .att-orb-1 { left: -34px; top: 16vh;  animation-delay: 0.1s; }
+          .att-orb-2 { left: -34px; top: 46vh;  animation-delay: 0.5s; }
+          .att-orb-3 { right: -34px; top: 28vh; animation-delay: 0.3s; }
+          .att-orb-4 { right: -34px; top: 58vh; animation-delay: 0.7s; }
         }
 
         /* ── Tablet / mobile: 2-per-side, smaller ── */
@@ -540,10 +536,8 @@ export default function AdvisorClient() {
           .att-orb { width: 86px; height: 86px; }
           .att-orb-1 { left: -20px; top: 14vh;  animation-delay: 0.1s; }
           .att-orb-2 { left: -20px; top: 40vh;  animation-delay: 0.5s; }
-          .att-orb-3 { display: none; }
-          .att-orb-4 { right: -20px; top: 26vh; animation-delay: 0.3s; }
-          .att-orb-5 { right: -20px; top: 53vh; animation-delay: 0.7s; }
-          .att-orb-6 { display: none; }
+          .att-orb-3 { right: -20px; top: 26vh; animation-delay: 0.3s; }
+          .att-orb-4 { right: -20px; top: 53vh; animation-delay: 0.7s; }
         }
 
         * { box-sizing: border-box; }

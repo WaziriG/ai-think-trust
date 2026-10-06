@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AI Think Trust · The Trusted Voices in AI</title>
-<meta name="description" content="The answers aren't at the surface. Six practitioners went down and got them, in six different directions, on real businesses. Whatever you are stuck on, one of us has been stuck there.">
+<meta name="description" content="The answers aren't at the surface. Four practitioners went down and got them, in four different directions, on real businesses. Whatever you are stuck on, one of us has been stuck there.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230A0A0A'/><circle cx='16' cy='16' r='6' fill='%23E53935'/></svg>">
 <link rel="canonical" href="https://www.aithinktrust.com/">
 <!-- layout.tsx carried these before; a file served from public/ never touches it,
@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="AI Think Trust">
 <meta property="og:url" content="https://www.aithinktrust.com/">
 <meta property="og:title" content="The answers aren't at the surface.">
-<meta property="og:description" content="Six practitioners went down and got them, in six different directions, on real businesses. Whatever you're stuck on, one of us has been stuck there.">
+<meta property="og:description" content="Four practitioners went down and got them, in four different directions, on real businesses. Whatever you're stuck on, one of us has been stuck there.">
 <meta property="og:image" content="https://www.aithinktrust.com/dive/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Sunlight breaking on the underside of the ocean surface, with the words: The answers aren't at the surface.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The answers aren't at the surface.">
-<meta name="twitter:description" content="Six practitioners went down and got them. Next session Wednesday, September 9.">
+<meta name="twitter:description" content="Four practitioners went down and got them. Next session Wednesday, September 9.">
 <meta name="twitter:image" content="https://www.aithinktrust.com/dive/assets/og.jpg">
 <link rel="stylesheet" href="/dive/fonts.css">
 <link rel="stylesheet" href="/dive/scrollcraft.css">
@@ -38,7 +38,7 @@
     --ait-line: rgba(245,245,245,0.14);
   }
 
-  /* ---------- rail: depth and the six. No log-book costume. -------------- */
+  /* ---------- rail: depth and the four. No log-book costume. -------------- */
   .ait-rail {
     position: fixed; left: 0; top: 0; bottom: 0; width: 132px;
     padding: 26px 0 26px 26px; z-index: 300;
@@ -96,7 +96,7 @@
      not large display type, so it needs the full 4.5:1 */
   .ait-block--side .sc-label { color: var(--sc-ink); }
 
-  /* ---------- the six directions: the dwell layer ------------------------ */
+  /* ---------- the four directions: the dwell layer ------------------------ */
   .ait-dirs { list-style: none; margin: 0; padding: 0; max-width: 34ch; }
   .ait-dirs li {
     padding: 10px 0 10px 16px; border-left: 1px solid var(--ait-line);
@@ -108,7 +108,7 @@
     font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--sc-ink-soft); margin-top: 5px; }
 
-  /* The left half of this leg is empty water while the six lines sit right.
+  /* The left half of this leg is empty water while the four lines sit right.
      A portrait surfaces there in sync with whichever line is legible, so the
      attribution is unmistakable. Masked, desaturated and dimmed so it reads as
      a face a dive light found, not a headshot pasted on a photo. */
@@ -124,7 +124,7 @@
     -webkit-mask-image: radial-gradient(ellipse 39% 44% at 50% 42%, #000 0%, rgba(0,0,0,0.9) 46%, rgba(0,0,0,0.28) 66%, transparent 82%);
     mask-image: radial-gradient(ellipse 39% 44% at 50% 42%, #000 0%, rgba(0,0,0,0.9) 46%, rgba(0,0,0,0.28) 66%, transparent 82%);
   }
-  /* The six source headshots are framed completely differently: Sage is a small
+  /* The four source headshots are framed completely differently: Sage is a small
      seated full body, Waziri sits far right, Jackson is a tight crop. Each one
      gets its own translate and zoom so the HEAD lands at the porthole's centre.
      Translate runs first, then the scale expands about that same point. */
@@ -136,21 +136,19 @@
             brightness(0.74) contrast(1.14);
   }
 
-  /* ---------- the peak: all six, as equals -------------------------------
-     Six identical cards across the full frame. Nobody is bigger than anybody
+  /* ---------- the peak: all four, as equals -------------------------------
+     Four identical cards across the full frame. Nobody is bigger than anybody
      else; the sounding shows only as a hairline and a small label, so the
      page can still suggest a starting point without ranking the collective. */
   .ait-block--wide { inset-inline: 168px 56px; max-width: none; bottom: clamp(2rem, 9vh, 6rem); }
   .ait-all { list-style: none; margin: 0; padding: 0;
-    display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; }
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
   .ait-all li { opacity: 0; transform: translateY(14px);
     transition: opacity 620ms ease-out, transform 620ms cubic-bezier(0.16,0.84,0.32,1); }
   .ait-all.is-open li { opacity: 1; transform: none; }
   .ait-all li:nth-child(2) { transition-delay: 60ms; }
   .ait-all li:nth-child(3) { transition-delay: 120ms; }
   .ait-all li:nth-child(4) { transition-delay: 180ms; }
-  .ait-all li:nth-child(5) { transition-delay: 240ms; }
-  .ait-all li:nth-child(6) { transition-delay: 300ms; }
   .ait-all__rule { display: block; height: 2px; background: transparent; margin-bottom: 12px; }
   .ait-all li[data-start="1"] .ait-all__rule { background: var(--sc-accent); }
   .ait-all img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover;
@@ -307,11 +305,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div>
     <span class="ait-rail__depth" id="ait-depth">0 m</span>
     <ol class="ait-gauge" id="ait-gauge" aria-label="Who this is sounding like">
-      <li data-sig="visibility"><span class="ait-gauge__k">PD</span><i class="ait-gauge__bar"></i></li>
       <li data-sig="infrastructure"><span class="ait-gauge__k">JE</span><i class="ait-gauge__bar"></i></li>
       <li data-sig="engineering"><span class="ait-gauge__k">SF</span><i class="ait-gauge__bar"></i></li>
       <li data-sig="architecture"><span class="ait-gauge__k">DM</span><i class="ait-gauge__bar"></i></li>
-      <li data-sig="operations"><span class="ait-gauge__k">JB</span><i class="ait-gauge__bar"></i></li>
       <li data-sig="systems"><span class="ait-gauge__k">WG</span><i class="ait-gauge__bar"></i></li>
     </ol>
   </div>
@@ -357,7 +353,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- 1 · the promise, said in their own words -->
     <div class="sc-copy sc-copy--lead" data-sc-copy data-sc-window="hero">
       <h1 class="sc-display sc-display--xl ait-h1">The Answers Aren't<em>At The Surface.</em></h1>
-      <p class="sc-lede ait-lede">So six of us went down and got them. Six different corners of AI,
+      <p class="sc-lede ait-lede">So four of us went down and got them. Four different corners of AI,
         learned on real businesses.</p>
     </div>
 
@@ -384,37 +380,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="ait-line"><span>You just have to know</span></span>
           <span class="ait-line"><span class="ait-accent">who to ask.</span></span>
         </h2>
-        <p class="sc-body">Six of us already did, in six different directions, on our own clients,
+        <p class="sc-body">Four of us already did, in four different directions, on our own clients,
           with our own money and our own mistakes. Whatever you are stuck on, one of us has
           been stuck there.</p>
       </div>
     </div>
 
-    <!-- 4 · how it works: six directions. This is the dwell layer. -->
+    <!-- 4 · how it works: four directions. This is the dwell layer. -->
     <div class="sc-copy sc-copy--lead ait-block--side" data-sc-copy data-sc-window="0.400 0.588 0.10 0.12">
-      <p class="sc-label" style="margin:0 0 4px">Six directions</p>
+      <p class="sc-label" style="margin:0 0 4px">Four directions</p>
     </div>
     <div class="ait-faces" id="ait-faces" aria-hidden="true">
-      <figure style="--tx:4%;--ty:6%;--s:1.34"><img src="/dive/assets/patty.jpg" alt=""></figure>
       <figure style="--tx:3%;--ty:16%;--s:1.28"><img src="/dive/assets/jackson.jpg" alt=""></figure>
       <figure style="--tx:2%;--ty:16%;--s:1.80"><img src="/dive/assets/sage.jpg" alt=""></figure>
       <figure style="--tx:-3%;--ty:20%;--s:1.34"><img src="/dive/assets/daniel.jpg" alt=""></figure>
-      <figure style="--tx:5%;--ty:30%;--s:1.40"><img src="/dive/assets/jasmine.jpg" alt=""></figure>
       <figure style="--tx:10%;--ty:24%;--s:1.42"><img src="/dive/assets/waziri.jpg" alt=""></figure>
     </div>
 
     <div class="sc-copy sc-copy--trail" data-sc-copy data-sc-window="0.398 0.590 0.08 0.10">
       <ul class="ait-dirs" id="ait-dirs">
-        <li data-sig="visibility">People should know who I am by now.<em>Patty Dominguez</em></li>
         <li data-sig="infrastructure">The site and the systems are held together with tape.<em>Jackson Edens</em></li>
         <li data-sig="engineering">I need engineers, not another consultant.<em>Sage Faraday</em></li>
         <li data-sig="architecture">I'm paying for coordination I shouldn't need.<em>Daniel Marama</em></li>
-        <li data-sig="operations">The admin is eating the business.<em>Jasmine Brown</em></li>
         <li data-sig="systems">Off-the-shelf tools stopped being enough.<em>Waziri Garuba</em></li>
       </ul>
     </div>
 
-    <!-- 5 · PEAK. All six. Yours leads, nobody is hidden. -->
+    <!-- 5 · PEAK. All four. Yours leads, nobody is hidden. -->
     <div class="sc-copy sc-copy--lead" data-sc-copy data-sc-window="0.606 0.671 0.24 0.34">
       <h2 class="sc-display sc-display--md" style="margin:0;max-width:13ch;letter-spacing:-0.028em">
         Here's who to ask.</h2>
@@ -427,7 +419,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="sc-copy sc-copy--lead" data-sc-copy data-sc-window="finale">
       <div class="ait-close">
         <h2 class="sc-display sc-display--lg" style="max-width:13ch">Dive in with us.</h2>
-        <p class="sc-body">The six of us meet to compare what actually worked and what did not.
+        <p class="sc-body">The four of us meet to compare what actually worked and what did not.
           We open that room to operators like you. One hour, no pitch, and you leave with
           something you can use on Monday.</p>
 
@@ -469,15 +461,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 /* ============================================================================
    THE SOUNDING (v2)
-   Reads which of the six directions you slowed down on, then at the peak brings
-   ALL SIX forward with yours leading. It orders the collective, it never hides
-   five of them. Engine untouched: reads --sc-seg / --sc-segp and sc:waypoint.
+   Reads which of the four directions you slowed down on, then at the peak brings
+   ALL FOUR forward with yours leading. It orders the collective, it never hides
+   three of them. Engine untouched: reads --sc-seg / --sc-segp and sc:waypoint.
    ========================================================================== */
 (function () {
   var TRUST = {
-    visibility: { k: 'PD', name: 'Patty Dominguez', role: 'Brand Authority & AI Visibility',
-      img: '/dive/assets/patty.jpg',
-      bio: 'Closes the gap between the authority you have earned and the authority buyers and AI can actually see.' },
     infrastructure: { k: 'JE', name: 'Jackson Edens', role: 'Digital Infrastructure',
       img: '/dive/assets/jackson.jpg',
       bio: 'Builds the foundation. Websites, automations, and integrated systems that scale without adding headcount.' },
@@ -487,14 +476,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     architecture: { k: 'DM', name: 'Daniel Marama', role: 'AI Systems Architect',
       img: '/dive/assets/daniel.jpg',
       bio: 'Works with $5M to $50M companies on the Hiring Tax, the 10 to 15% of revenue lost to manual coordination.' },
-    operations: { k: 'JB', name: 'Jasmine Brown', role: 'Operations & Automation',
-      img: '/dive/assets/jasmine.jpg',
-      bio: 'Designs the backend your revenue already outgrew. Less admin, and systems that hold.' },
     systems: { k: 'WG', name: 'Waziri Garuba', role: 'AI Systems & Strategy',
       img: '/dive/assets/waziri.jpg',
       bio: 'Builds custom agents, GPTs, and multi-tool workflows for operators past off-the-shelf tools.' }
   };
-  var ORDER = ['visibility', 'infrastructure', 'engineering', 'architecture', 'operations', 'systems'];
+  var ORDER = ['infrastructure', 'engineering', 'architecture', 'systems'];
   var DIRS_LEG = 3, PEAK_LEG = 4;
 
   var dwell = {}; ORDER.forEach(function (s) { dwell[s] = 0; });
@@ -525,7 +511,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     depthEl.textContent = (m === 0 ? '0' : '−' + m.toLocaleString()) + ' m';
   }
 
-  /* The six arrive one at a time as leg 4 plays, so dwell can actually tell
+  /* The four arrive one at a time as leg 4 plays, so dwell can actually tell
      them apart. All at full opacity at once would score them all the same. */
   function paintDirs(st) {
     if (st.seg !== DIRS_LEG) {
@@ -533,7 +519,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       faces.forEach(function (im) { im.style.opacity = '0'; });
       return null;
     }
-    // A travelling falloff rather than six discrete steps: something is always
+    // A travelling falloff rather than four discrete steps: something is always
     // moving, and legibility is a continuous number dwell can weight against.
     var pos = st.segp * ORDER.length, w = [];
     dirs.forEach(function (li, i) {
@@ -607,7 +593,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     // The harness cannot see a bespoke fixed layer, so report what actually
     // paints: the depth digits, each line's rendered legibility, the current
-    // leader, and whether the six have arrived. Rounded rendered values only.
+    // leader, and whether the four have arrived. Rounded rendered values only.
     railEl.setAttribute('data-sc-verify-state',
       depthEl.textContent + '|' +
       (w ? w.map(function (v) { return v.toFixed(1); }).join('') : '------') + '|' +
@@ -630,7 +616,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   })();
 })();
 
-/* ---- close. Real AITT schedule, from Jasmine's calendar invites (Aug 21 2026).
+/* ---- close. Real AITT schedule, from the team's calendar invites (Aug 21 2026).
    WARNING: the Meet URLs below are the INTERNAL team invites. Publishing them
    means anyone joins the call directly and nothing is captured. Replace each
    `url` with a real registration page as soon as one exists, and mirror this

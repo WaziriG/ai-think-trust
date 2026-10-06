@@ -7,10 +7,8 @@ export type TrustMember = {
 };
 
 export const TRUST_MEMBERS: Record<string, TrustMember> = {
-  "Patty Dominguez": { email: "hello@moreleverage.io", bookingUrl: "" },
   "Jackson Edens":   { email: "jackson@essaiconsulting.com", bookingUrl: "" },
   "Sage Faraday":    { email: "sagesingularity@gmail.com", bookingUrl: "" },
   "Daniel Marama":   { email: "daniel@maramamarketing.com", bookingUrl: "" },
-  "Jasmine Brown":   { email: "jasmine@righthandsupport.com", bookingUrl: "" },
   "Waziri Garuba":   { email: "waziri@harlemlabs.com", bookingUrl: "" },
 };
